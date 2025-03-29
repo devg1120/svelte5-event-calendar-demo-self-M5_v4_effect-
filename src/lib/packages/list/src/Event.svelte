@@ -99,8 +99,8 @@
     tabindex="{onclick ? 0 : undefined}"
     {onclick}
     onkeydown={onclick && keyEnter(onclick)}
-    onmouseenter={createHandler($eventMouseEnter)}
-    onmouseleave={createHandler($eventMouseLeave)}
+    onmouseenter={() => createHandler($eventMouseEnter)}
+    onmouseleave={() => createHandler($eventMouseLeave)}
     onpointerdown={$_interaction.action?.noAction}
 >
     <div class="{$theme.eventTag}" {style}></div>
