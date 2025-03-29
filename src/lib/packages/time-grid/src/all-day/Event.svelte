@@ -197,8 +197,8 @@
   tabindex={onclick ? 0 : undefined}
   {onclick}
   onkeydown={onclick && keyEnter(onclick)}
-  onmouseenter={createHandler($eventMouseEnter, display)}
-  onmouseleave={createHandler($eventMouseLeave, display)}
+  onmouseenter={() => createHandler($eventMouseEnter, display)}
+  onmouseleave={() => createHandler($eventMouseLeave, display)}
   onpointerdown={!helperEvent(display) && createDragHandler($_interaction)}
 >
   <SvelteComponent
