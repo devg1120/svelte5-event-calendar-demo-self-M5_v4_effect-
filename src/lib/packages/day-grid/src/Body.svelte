@@ -1,11 +1,10 @@
 <script>
-    import { run } from 'svelte/legacy';
     import { untrack } from "svelte";
 
-    import {getContext} from 'svelte';
-    import Week from './Week.svelte';
+    import { getContext } from "svelte";
+    import Week from "./Week.svelte";
 
-    let {_bodyEl, _viewDates, _hiddenEvents, dayMaxEvents, hiddenDays, theme} = getContext('state');
+    let { _bodyEl, _viewDates, _hiddenEvents, dayMaxEvents, hiddenDays, theme } = getContext("state");
 
     let weeks = $state();
     let days = $state();
@@ -20,21 +19,17 @@
             for (let j = 0; j < days; ++j) {
                 dates.push($_viewDates[i * days + j]);
             }
-untrack(() => {
-            weeks.push(dates);
-    });
+            untrack(() => {
+                weeks.push(dates);
+            });
         }
     });
-    
 </script>
 
-<div
-    bind:this={$_bodyEl}
-    class="{$theme.body}{$dayMaxEvents === true ? ' ' + $theme.uniform : ''}"
->
-    <div class="{$theme.content}">
+<div bind:this={$_bodyEl} class="{$theme.body}{$dayMaxEvents === true ? ' ' + $theme.uniform : ''}">
+    <div class={$theme.content}>
         {#each weeks as dates}
-            <Week {dates}/>
+            <Week {dates} />
         {/each}
     </div>
 </div>

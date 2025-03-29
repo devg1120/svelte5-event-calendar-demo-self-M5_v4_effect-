@@ -1,16 +1,14 @@
-import {derived} from 'svelte/store';
-import {isFunction} from './utils.js';
-import {toLocalDate} from './date';
-import {createResources} from './resources.js';
-import {getPayload} from './payload.js';
+import { derived } from "svelte/store";
+import { isFunction } from "./utils.js";
+import { toLocalDate } from "./date";
+import { createResources } from "./resources.js";
+import { getPayload } from "./payload.js";
 
 export function intl(locale, format) {
     return derived([locale, format], ([$locale, $format]) => {
-        let intl = isFunction($format)
-            ? {format: $format}
-            : new Intl.DateTimeFormat($locale, $format);
+        let intl = isFunction($format) ? { format: $format } : new Intl.DateTimeFormat($locale, $format);
         return {
-            format: date => intl.format(toLocalDate(date))
+            format: (date) => intl.format(toLocalDate(date)),
         };
     });
 }
@@ -30,8 +28,8 @@ export function intlRange(locale, format) {
                     // Therefore, we first swap the parameters, and then swap the resulting parts.
                     /** @see https://github.com/vkurko/calendar/issues/227 */
                     let parts = intl.formatRangeToParts(end, start);
-                    let result = '';
-                    let sources = ['startRange', 'endRange'];
+                    let result = "";
+                    let sources = ["startRange", "endRange"];
                     let processed = [false, false];
                     for (let part of parts) {
                         let i = sources.indexOf(part.source);
@@ -49,13 +47,13 @@ export function intlRange(locale, format) {
             };
         }
         return {
-            formatRange: (start, end) => formatRange(toLocalDate(start), toLocalDate(end))
+            formatRange: (start, end) => formatRange(toLocalDate(start), toLocalDate(end)),
         };
     });
 }
 
 function _getParts(source, parts) {
-    let result = '';
+    let result = "";
     for (let part of parts) {
         if (part.source == source) {
             result += part.value;
@@ -68,13 +66,13 @@ export function viewResources(state) {
     return derived(
         [state.resources, state.filterResourcesWithEvents, state._events, state._activeRange],
         ([$resources, $filterResourcesWithEvents, $_events, $_activeRange]) => {
-            let result = $resources.filter(resource => !getPayload(resource).hidden);
+            let result = $resources.filter((resource) => !getPayload(resource).hidden);
 
             if ($filterResourcesWithEvents) {
-                result = $resources.filter(resource => {
+                result = $resources.filter((resource) => {
                     for (let event of $_events) {
                         if (
-                            event.display !== 'background' &&
+                            event.display !== "background" &&
                             event.resourceIds.includes(resource.id) &&
                             event.start < $_activeRange.end &&
                             event.end > $_activeRange.start
@@ -91,6 +89,6 @@ export function viewResources(state) {
             }
 
             return result;
-        }
+        },
     );
 }

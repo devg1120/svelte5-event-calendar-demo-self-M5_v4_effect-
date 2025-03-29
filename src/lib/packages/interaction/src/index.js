@@ -1,6 +1,6 @@
-import {writable} from 'svelte/store';
-import {noop} from '@event-calendar/core';
-import Auxiliary from './Auxiliary.svelte';
+import { writable } from "svelte/store";
+import { noop } from "@event-calendar/core";
+import Auxiliary from "./Auxiliary.svelte";
 
 export default {
     createOptions(options) {
@@ -21,26 +21,26 @@ export default {
         options.longPressDelay = 1000;
         options.pointer = false;
         options.select = undefined;
-        options.selectBackgroundColor = undefined;  // ec option
+        options.selectBackgroundColor = undefined; // ec option
         options.selectLongPressDelay = undefined;
         options.selectMinDistance = 5;
         options.unselect = undefined;
         options.unselectAuto = true;
-        options.unselectCancel = '';
-        options.theme.draggable = 'ec-draggable';
-        options.theme.ghost = 'ec-ghost';
-        options.theme.preview = 'ec-preview';
-        options.theme.pointer = 'ec-pointer';
-        options.theme.resizer = 'ec-resizer';
-        options.theme.start = 'ec-start';
-        options.theme.dragging = 'ec-dragging';
-        options.theme.resizingY = 'ec-resizing-y';
-        options.theme.resizingX = 'ec-resizing-x';
-        options.theme.selecting = 'ec-selecting';
+        options.unselectCancel = "";
+        options.theme.draggable = "ec-draggable";
+        options.theme.ghost = "ec-ghost";
+        options.theme.preview = "ec-preview";
+        options.theme.pointer = "ec-pointer";
+        options.theme.resizer = "ec-resizer";
+        options.theme.start = "ec-start";
+        options.theme.dragging = "ec-dragging";
+        options.theme.resizingY = "ec-resizing-y";
+        options.theme.resizingX = "ec-resizing-x";
+        options.theme.selecting = "ec-selecting";
     },
 
     createStores(state) {
         state._draggable = writable(noop);
-        state._auxiliary.update($_auxiliary => [...$_auxiliary, Auxiliary]);
-    }
-}
+        state._auxiliary.update(($_auxiliary) => [...$_auxiliary, Auxiliary]);
+    },
+};

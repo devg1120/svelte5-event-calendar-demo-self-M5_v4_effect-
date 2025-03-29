@@ -1,15 +1,14 @@
-
 export function setContent(node, content) {
     let actions = {
         update(content) {
-            if (typeof content == 'string') {
+            if (typeof content == "string") {
                 node.innerText = content;
             } else if (content?.domNodes) {
                 node.replaceChildren(...content.domNodes);
             } else if (content?.html) {
                 node.innerHTML = content.html;
             }
-        }
+        },
     };
     actions.update(content);
 
@@ -18,12 +17,9 @@ export function setContent(node, content) {
 
 /** Dispatch event occurred outside of node */
 export function outsideEvent(node, type) {
-
-    const handlePointerDown = jsEvent => {
+    const handlePointerDown = (jsEvent) => {
         if (node && !node.contains(jsEvent.target)) {
-            node.dispatchEvent(
-                new CustomEvent(type + 'outside', {detail: {jsEvent}})
-            );
+            node.dispatchEvent(new CustomEvent(type + "outside", { detail: { jsEvent } }));
         }
     };
 
@@ -32,6 +28,6 @@ export function outsideEvent(node, type) {
     return {
         destroy() {
             document.removeEventListener(type, handlePointerDown, true);
-        }
+        },
     };
 }

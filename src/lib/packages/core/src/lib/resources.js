@@ -1,4 +1,4 @@
-import {setPayload} from './payload.js';
+import { setPayload } from "./payload.js";
 
 export function createResources(input) {
     let result = [];
@@ -16,7 +16,7 @@ function _createResources(input, level, flat) {
             level,
             children: [],
             expanded: true,
-            hidden: false
+            hidden: false,
         };
         setPayload(resource, payload);
         if (item.children) {
@@ -29,10 +29,10 @@ function _createResources(input, level, flat) {
 export function createResource(input) {
     return {
         id: String(input.id),
-        title: input.title || '',
+        title: input.title || "",
         eventBackgroundColor: input.eventBackgroundColor,
         eventTextColor: input.eventTextColor,
-        extendedProps: input.extendedProps ?? {}
+        extendedProps: input.extendedProps ?? {},
     };
 }
 
@@ -45,5 +45,5 @@ export function resourceTextColor(event, resources) {
 }
 
 function findResource(event, resources) {
-    return resources.find(resource => event.resourceIds.includes(resource.id));
+    return resources.find((resource) => event.resourceIds.includes(resource.id));
 }

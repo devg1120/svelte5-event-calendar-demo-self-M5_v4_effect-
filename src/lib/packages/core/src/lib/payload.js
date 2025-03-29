@@ -1,4 +1,4 @@
-import {symbol} from './utils.js';
+import { symbol } from "./utils.js";
 
 let payloadProp = symbol();
 export function setPayload(obj, payload) {

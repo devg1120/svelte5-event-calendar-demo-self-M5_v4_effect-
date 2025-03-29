@@ -13,139 +13,139 @@ Inspired by [FullCalendar](https://fullcalendar.io/), implements similar options
 ## Table of contents
 
 - [Usage](#usage)
-  - [JavaScript module / Svelte component](#javascript-module--svelte-component)
-  - [Pre-built browser ready bundle](#pre-built-browser-ready-bundle)
-  - [Modifying options after initialization](#modifying-options-after-initialization)
+    - [JavaScript module / Svelte component](#javascript-module--svelte-component)
+    - [Pre-built browser ready bundle](#pre-built-browser-ready-bundle)
+    - [Modifying options after initialization](#modifying-options-after-initialization)
 - [Options](#options)
-  <table>
-  <tr><td>
+      <table>
+      <tr><td>
 
-  - [allDayContent](#alldaycontent)
-  - [allDaySlot](#alldayslot)
-  - [buttonText](#buttontext)
-  - [customButtons](#custombuttons)
-  - [date](#date)
-  - [dateClick](#dateclick)
-  - [datesAboveResources](#datesaboveresources)
-  - [datesSet](#datesset)
-  - [dayCellFormat](#daycellformat)
-  - [dayHeaderAriaLabelFormat](#dayheaderarialabelformat)
-  - [dayHeaderFormat](#dayheaderformat)
-  - [dayMaxEvents](#daymaxevents)
-  - [dayPopoverFormat](#daypopoverformat)
-  - [displayEventEnd](#displayeventend)
-  - [dragScroll](#dragscroll)
-  - [duration](#duration)
-  - [editable](#editable)
-  - [events](#events)
-  - [eventAllUpdated](#eventallupdated)
-  - [eventBackgroundColor](#eventbackgroundcolor)
-  - [eventClassNames](#eventclassnames)
-  - [eventClick](#eventclick)
-  - [eventColor](#eventcolor)
-  - [eventContent](#eventcontent)
-  - [eventDidMount](#eventdidmount)
-  - [eventDragMinDistance](#eventdragmindistance)
-  - [eventDragStart](#eventdragstart)
-  - [eventDragStop](#eventdragstop)
-  - [eventDrop](#eventdrop)
-  </td><td>
+    - [allDayContent](#alldaycontent)
+    - [allDaySlot](#alldayslot)
+    - [buttonText](#buttontext)
+    - [customButtons](#custombuttons)
+    - [date](#date)
+    - [dateClick](#dateclick)
+    - [datesAboveResources](#datesaboveresources)
+    - [datesSet](#datesset)
+    - [dayCellFormat](#daycellformat)
+    - [dayHeaderAriaLabelFormat](#dayheaderarialabelformat)
+    - [dayHeaderFormat](#dayheaderformat)
+    - [dayMaxEvents](#daymaxevents)
+    - [dayPopoverFormat](#daypopoverformat)
+    - [displayEventEnd](#displayeventend)
+    - [dragScroll](#dragscroll)
+    - [duration](#duration)
+    - [editable](#editable)
+    - [events](#events)
+    - [eventAllUpdated](#eventallupdated)
+    - [eventBackgroundColor](#eventbackgroundcolor)
+    - [eventClassNames](#eventclassnames)
+    - [eventClick](#eventclick)
+    - [eventColor](#eventcolor)
+    - [eventContent](#eventcontent)
+    - [eventDidMount](#eventdidmount)
+    - [eventDragMinDistance](#eventdragmindistance)
+    - [eventDragStart](#eventdragstart)
+    - [eventDragStop](#eventdragstop)
+    - [eventDrop](#eventdrop)
+        </td><td>
 
-  - [eventDurationEditable](#eventdurationeditable)
-  - [eventLongPressDelay](#eventlongpressdelay)
-  - [eventMouseEnter](#eventmouseenter)
-  - [eventMouseLeave](#eventmouseleave)
-  - [eventResizableFromStart](#eventresizablefromstart)
-  - [eventResize](#eventresize)
-  - [eventResizeStart](#eventresizestart)
-  - [eventResizeStop](#eventresizestop)
-  - [eventSources](#eventsources)
-  - [eventStartEditable](#eventstarteditable)
-  - [eventTextColor](#eventtextcolor)
-  - [eventTimeFormat](#eventtimeformat)
-  - [filterEventsWithResources](#filtereventswithresources)
-  - [filterResourcesWithEvents](#filterresourceswithevents)
-  - [firstDay](#firstday)
-  - [flexibleSlotTimeLimits](#flexibleslottimelimits)
-  - [headerToolbar](#headertoolbar)
-  - [height](#height)
-  - [hiddenDays](#hiddendays)
-  - [highlightedDates](#highlighteddates)
-  - [lazyFetching](#lazyfetching)
-  - [listDayFormat](#listdayformat)
-  - [listDaySideFormat](#listdaysideformat)
-  - [loading](#loading)
-  - [locale](#locale)
-  - [longPressDelay](#longpressdelay)
-  - [moreLinkContent](#morelinkcontent)
-  - [noEventsClick](#noeventsclick)
-  - [noEventsContent](#noeventscontent)
-  </td><td>
+    - [eventDurationEditable](#eventdurationeditable)
+    - [eventLongPressDelay](#eventlongpressdelay)
+    - [eventMouseEnter](#eventmouseenter)
+    - [eventMouseLeave](#eventmouseleave)
+    - [eventResizableFromStart](#eventresizablefromstart)
+    - [eventResize](#eventresize)
+    - [eventResizeStart](#eventresizestart)
+    - [eventResizeStop](#eventresizestop)
+    - [eventSources](#eventsources)
+    - [eventStartEditable](#eventstarteditable)
+    - [eventTextColor](#eventtextcolor)
+    - [eventTimeFormat](#eventtimeformat)
+    - [filterEventsWithResources](#filtereventswithresources)
+    - [filterResourcesWithEvents](#filterresourceswithevents)
+    - [firstDay](#firstday)
+    - [flexibleSlotTimeLimits](#flexibleslottimelimits)
+    - [headerToolbar](#headertoolbar)
+    - [height](#height)
+    - [hiddenDays](#hiddendays)
+    - [highlightedDates](#highlighteddates)
+    - [lazyFetching](#lazyfetching)
+    - [listDayFormat](#listdayformat)
+    - [listDaySideFormat](#listdaysideformat)
+    - [loading](#loading)
+    - [locale](#locale)
+    - [longPressDelay](#longpressdelay)
+    - [moreLinkContent](#morelinkcontent)
+    - [noEventsClick](#noeventsclick)
+    - [noEventsContent](#noeventscontent)
+        </td><td>
 
-  - [nowIndicator](#nowindicator)
-  - [pointer](#pointer)
-  - [resources](#resources)
-  - [resourceLabelContent](#resourcelabelcontent)
-  - [resourceLabelDidMount](#resourcelabeldidmount)
-  - [select](#select)
-  - [selectable](#selectable)
-  - [selectBackgroundColor](#selectbackgroundcolor)
-  - [selectLongPressDelay](#selectlongpressdelay)
-  - [selectMinDistance](#selectmindistance)
-  - [scrollTime](#scrolltime)
-  - [slotDuration](#slotduration)
-  - [slotEventOverlap](#sloteventoverlap)
-  - [slotHeight](#slotheight)
-  - [slotLabelFormat](#slotlabelformat)
-  - [slotMaxTime](#slotmaxtime)
-  - [slotMinTime](#slotmintime)
-  - [slotWidth](#slotwidth)
-  - [theme](#theme)
-  - [titleFormat](#titleformat)
-  - [unselect](#unselect)
-  - [unselectAuto](#unselectauto)
-  - [unselectCancel](#unselectcancel)
-  - [validRange](#validrange)
-  - [view](#view)
-  - [viewDidMount](#viewdidmount)
-  - [views](#views)
-  - [weekNumberContent](#weeknumbercontent)
-  - [weekNumbers](#weeknumbers)
-  </td></tr>
-  </table>
+    - [nowIndicator](#nowindicator)
+    - [pointer](#pointer)
+    - [resources](#resources)
+    - [resourceLabelContent](#resourcelabelcontent)
+    - [resourceLabelDidMount](#resourcelabeldidmount)
+    - [select](#select)
+    - [selectable](#selectable)
+    - [selectBackgroundColor](#selectbackgroundcolor)
+    - [selectLongPressDelay](#selectlongpressdelay)
+    - [selectMinDistance](#selectmindistance)
+    - [scrollTime](#scrolltime)
+    - [slotDuration](#slotduration)
+    - [slotEventOverlap](#sloteventoverlap)
+    - [slotHeight](#slotheight)
+    - [slotLabelFormat](#slotlabelformat)
+    - [slotMaxTime](#slotmaxtime)
+    - [slotMinTime](#slotmintime)
+    - [slotWidth](#slotwidth)
+    - [theme](#theme)
+    - [titleFormat](#titleformat)
+    - [unselect](#unselect)
+    - [unselectAuto](#unselectauto)
+    - [unselectCancel](#unselectcancel)
+    - [validRange](#validrange)
+    - [view](#view)
+    - [viewDidMount](#viewdidmount)
+    - [views](#views)
+    - [weekNumberContent](#weeknumbercontent)
+    - [weekNumbers](#weeknumbers)
+        </td></tr>
+        </table>
 
 - [Methods](#methods)
-  <table>
-  <tr><td>
+      <table>
+      <tr><td>
 
-  - [getOption](#getoption-name-)
-  - [setOption](#setoption-name-value-)
-  </td><td>
+    - [getOption](#getoption-name-)
+    - [setOption](#setoption-name-value-)
+        </td><td>
 
-  - [addEvent](#addevent-event-)
-  - [getEventById](#geteventbyid-id-)
-  - [getEvents](#getevents)
-  - [removeEventById](#removeeventbyid-id-)
-  - [updateEvent](#updateevent-event-)
-  - [refetchEvents](#refetchevents)
-  </td><td>
+    - [addEvent](#addevent-event-)
+    - [getEventById](#geteventbyid-id-)
+    - [getEvents](#getevents)
+    - [removeEventById](#removeeventbyid-id-)
+    - [updateEvent](#updateevent-event-)
+    - [refetchEvents](#refetchevents)
+        </td><td>
 
-  - [dateFromPoint](#datefrompoint-x-y-)
-  - [destroy](#destroy)
-  - [getView](#getview)
-  - [next](#next)
-  - [prev](#prev)
-  - [unselect](#unselect-1)
-  </td></tr>
-  </table>
+    - [dateFromPoint](#datefrompoint-x-y-)
+    - [destroy](#destroy)
+    - [getView](#getview)
+    - [next](#next)
+    - [prev](#prev)
+    - [unselect](#unselect-1)
+        </td></tr>
+        </table>
 
 - [Content](#content)
 - [Event object](#event-object)
-  - [Parsing event from a plain object](#parsing-event-from-a-plain-object)
+    - [Parsing event from a plain object](#parsing-event-from-a-plain-object)
 - [Duration object](#duration-object)
-  - [Parsing duration from input values](#parsing-duration-from-input-values)
+    - [Parsing duration from input values](#parsing-duration-from-input-values)
 - [Resource object](#resource-object)
-  - [Parsing resource from a plain object](#parsing-resource-from-a-plain-object)
+    - [Parsing resource from a plain object](#parsing-resource-from-a-plain-object)
 - [View object](#view-object)
 - [Theming](#theming)
 - [Browser support](#browser-support)
@@ -184,16 +184,16 @@ import TimeGrid from "@event-calendar/time-grid";
 import "@event-calendar/core/index.css";
 
 let ec = new Calendar({
-  target: document.getElementById("ec"),
-  props: {
-    plugins: [TimeGrid],
-    options: {
-      view: "timeGridWeek",
-      events: [
-        // your list of events
-      ],
+    target: document.getElementById("ec"),
+    props: {
+        plugins: [TimeGrid],
+        options: {
+            view: "timeGridWeek",
+            events: [
+                // your list of events
+            ],
+        },
     },
-  },
 });
 ```
 
@@ -201,16 +201,16 @@ Or in your Svelte component, use the calendar like this:
 
 ```html
 <script>
-  import Calendar from "@event-calendar/core";
-  import TimeGrid from "@event-calendar/time-grid";
+    import Calendar from "@event-calendar/core";
+    import TimeGrid from "@event-calendar/time-grid";
 
-  let plugins = [TimeGrid];
-  let options = {
-    view: "timeGridWeek",
-    events: [
-      // your list of events
-    ],
-  };
+    let plugins = [TimeGrid];
+    let options = {
+        view: "timeGridWeek",
+        events: [
+            // your list of events
+        ],
+    };
 </script>
 
 <Calendar {plugins} {options} />
@@ -221,10 +221,7 @@ Or in your Svelte component, use the calendar like this:
 Include the following lines of code in the `<head>` section of your page:
 
 ```html
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@event-calendar/build@3.10.0/event-calendar.min.css"
-/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@3.10.0/event-calendar.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@3.10.0/event-calendar.min.js"></script>
 ```
 
@@ -234,10 +231,7 @@ Include the following lines of code in the `<head>` section of your page:
 > Please note that the file paths contain an indication of a specific version of the library. You can remove this indication, then the latest version will be loaded:
 >
 > ```html
-> <link
->   rel="stylesheet"
->   href="https://cdn.jsdelivr.net/npm/@event-calendar/build/event-calendar.min.css"
-> />
+> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build/event-calendar.min.css" />
 > <script src="https://cdn.jsdelivr.net/npm/@event-calendar/build/event-calendar.min.js"></script>
 > ```
 >
@@ -249,10 +243,10 @@ Then initialize the calendar like this:
 
 ```js
 let ec = new EventCalendar(document.getElementById("ec"), {
-  view: "timeGridWeek",
-  events: [
-    // your list of events
-  ],
+    view: "timeGridWeek",
+    events: [
+        // your list of events
+    ],
 });
 ```
 
@@ -268,17 +262,17 @@ In Svelte, you can simply update the original `options` object.
 
 ```html
 <script>
-  import Calendar from "@event-calendar/core";
-  import TimeGrid from "@event-calendar/time-grid";
+    import Calendar from "@event-calendar/core";
+    import TimeGrid from "@event-calendar/time-grid";
 
-  let plugins = [TimeGrid];
-  let options = {
-    view: "timeGridWeek",
-  };
+    let plugins = [TimeGrid];
+    let options = {
+        view: "timeGridWeek",
+    };
 
-  function updateOptions() {
-    options.slotDuration = "01:00";
-  }
+    function updateOptions() {
+        options.slotDuration = "01:00";
+    }
 </script>
 
 <button on:click="{updateOptions}">Change slot duration</button>
@@ -332,20 +326,20 @@ When hidden with `false`, all-day events will not be displayed in `timeGrid`/`re
 
 - Type `object` or `function`
 - Default `{close: 'Close', dayGridMonth: 'month', listDay: 'list', listMonth: 'list', listWeek: 'list', listYear: 'list', resourceTimeGridDay: 'resources', resourceTimeGridWeek: 'resources', resourceTimelineDay: 'timeline', resourceTimelineMonth: 'timeline', resourceTimelineWeek: 'timeline', timeGridDay: 'day', timeGridWeek: 'week', today: 'today'}`
-  > Views override the default value as follows:
-  >
-  > - dayGridMonth `text => ({...text, next: 'Next month', prev: 'Previous month'})`
-  > - listDay `text => ({...text, next: 'Next day', prev: 'Previous day'})`
-  > - listMonth `text => ({...text, next: 'Next month', prev: 'Previous month'})`
-  > - listWeek `text => ({...text, next: 'Next week', prev: 'Previous week'})`
-  > - listYear `text => ({...text, next: 'Next year', prev: 'Previous year'})`
-  > - resourceTimeGridDay `text => ({...text, next: 'Next day', prev: 'Previous day'})`
-  > - resourceTimeGridWeek `text => ({...text, next: 'Next week', prev: 'Previous week'})`
-  > - resourceTimelineDay `text => ({...text, next: 'Next day', prev: 'Previous day'})`
-  > - resourceTimelineMonth `text => ({...text, next: 'Next month', prev: 'Previous month'})`
-  > - resourceTimelineWeek `text => ({...text, next: 'Next week', prev: 'Previous week'})`
-  > - timeGridDay `text => ({...text, next: 'Next day', prev: 'Previous day'})`
-  > - timeGridWeek `text => ({...text, next: 'Next week', prev: 'Previous week'})`
+    > Views override the default value as follows:
+    >
+    > - dayGridMonth `text => ({...text, next: 'Next month', prev: 'Previous month'})`
+    > - listDay `text => ({...text, next: 'Next day', prev: 'Previous day'})`
+    > - listMonth `text => ({...text, next: 'Next month', prev: 'Previous month'})`
+    > - listWeek `text => ({...text, next: 'Next week', prev: 'Previous week'})`
+    > - listYear `text => ({...text, next: 'Next year', prev: 'Previous year'})`
+    > - resourceTimeGridDay `text => ({...text, next: 'Next day', prev: 'Previous day'})`
+    > - resourceTimeGridWeek `text => ({...text, next: 'Next week', prev: 'Previous week'})`
+    > - resourceTimelineDay `text => ({...text, next: 'Next day', prev: 'Previous day'})`
+    > - resourceTimelineMonth `text => ({...text, next: 'Next month', prev: 'Previous month'})`
+    > - resourceTimelineWeek `text => ({...text, next: 'Next week', prev: 'Previous week'})`
+    > - timeGridDay `text => ({...text, next: 'Next day', prev: 'Previous day'})`
+    > - timeGridWeek `text => ({...text, next: 'Next week', prev: 'Previous week'})`
 
 Text that is displayed in buttons of the header toolbar.
 
@@ -382,19 +376,19 @@ First, specify the custom buttons as key-value pairs. Then reference them from t
 
 ```js
 let options = {
-  customButtons: {
-    myCustomButton: {
-      text: "custom!",
-      click: function () {
-        alert("clicked the custom button!");
-      },
+    customButtons: {
+        myCustomButton: {
+            text: "custom!",
+            click: function () {
+                alert("clicked the custom button!");
+            },
+        },
     },
-  },
-  headerToolbar: {
-    start: "title myCustomButton",
-    center: "",
-    end: "today prev,next",
-  },
+    headerToolbar: {
+        start: "title myCustomButton",
+        center: "",
+        end: "today prev,next",
+    },
 };
 ```
 
@@ -627,9 +621,9 @@ function (date) {
 
 - Type `object` or `function`
 - Default `{dateStyle: 'long'}`
-  > Views override the default value as follows:
-  >
-  > - dayGridMonth `{weekday: 'long'}`
+    > Views override the default value as follows:
+    >
+    > - dayGridMonth `{weekday: 'long'}`
 
 Defines the text that is used inside the `aria-label` attribute in calendar column headings.
 
@@ -656,11 +650,11 @@ function (date) {
 
 - Type `object` or `function`
 - Default `{weekday: 'short', month: 'numeric', day: 'numeric'}`
-  > Views override the default value as follows:
-  >
-  > - dayGridMonth `{weekday: 'short'}`
-  > - resourceTimelineMonth `{weekday: 'short', day: 'numeric'}`
-  > - timeGridDay `{weekday: 'long'}`
+    > Views override the default value as follows:
+    >
+    > - dayGridMonth `{weekday: 'short'}`
+    > - resourceTimelineMonth `{weekday: 'short', day: 'numeric'}`
+    > - timeGridDay `{weekday: 'long'}`
 
 Defines the text that is displayed on the calendar’s column headings.
 
@@ -713,12 +707,12 @@ function (date) {
 
 - Type `boolean`
 - Default `true`
-  > Views override the default value as follows:
-  >
-  > - dayGridMonth `false`
-  > - resourceTimelineDay `false`
-  > - resourceTimelineMonth `false`
-  > - resourceTimelineWeek `false`
+    > Views override the default value as follows:
+    >
+    > - dayGridMonth `false`
+    > - resourceTimelineDay `false`
+    > - resourceTimelineMonth `false`
+    > - resourceTimelineWeek `false`
 
 Determines whether to display an event’s end time.
 
@@ -734,16 +728,16 @@ Determines whether the calendar should automatically scroll during the event dra
 
 - Type `string`, `integer` or `object`
 - Default `{weeks: 1}`
-  > Views override the default value as follows:
-  >
-  > - dayGridMonth `{months: 1}`
-  > - listDay `{days: 1}`
-  > - listMonth `{months: 1}`
-  > - listYear `{years: 1}`
-  > - resourceTimeGridDay `{days: 1}`
-  > - resourceTimelineDay `{days: 1}`
-  > - resourceTimelineMonth `{months: 1}`
-  > - timeGridDay `{days: 1}`
+    > Views override the default value as follows:
+    >
+    > - dayGridMonth `{months: 1}`
+    > - listDay `{days: 1}`
+    > - listMonth `{months: 1}`
+    > - listYear `{years: 1}`
+    > - resourceTimeGridDay `{days: 1}`
+    > - resourceTimelineDay `{days: 1}`
+    > - resourceTimelineMonth `{months: 1}`
+    > - timeGridDay `{days: 1}`
 
 Sets the duration of a view.
 
@@ -2347,9 +2341,9 @@ This should be a value that can be parsed into a [Duration](#duration-object) ob
 
 - Type `string`, `integer` or `object`
 - Default `'00:30:00'`
-  > Views override the default value as follows:
-  >
-  > - resourceTimelineMonth `{days: 1}`
+    > Views override the default value as follows:
+    >
+    > - resourceTimelineMonth `{days: 1}`
 
 Defines the frequency for displaying time slots.
 
@@ -2374,7 +2368,7 @@ Defines the time slot height in pixels in the `timeGrid`/`resourceTimeGrid` view
 ```css
 .ec-time-grid .ec-time,
 .ec-time-grid .ec-line {
-  height: 24px; /* override this value */
+    height: 24px; /* override this value */
 }
 ```
 
@@ -2432,7 +2426,7 @@ Defines the time slot width in pixels in `ResourceTimeline` views. When changing
 ```css
 .ec-timeline .ec-time,
 .ec-timeline .ec-line {
-  width: 72px; /* override this value */
+    width: 72px; /* override this value */
 }
 ```
 
@@ -2440,20 +2434,20 @@ Defines the time slot width in pixels in `ResourceTimeline` views. When changing
 
 - Type `object` or `function`
 - Default `{allDay: 'ec-all-day', active: 'ec-active', bgEvent: 'ec-bg-event', bgEvents: 'ec-bg-events', body: 'ec-body', button: 'ec-button', buttonGroup: 'ec-button-group', calendar: 'ec', compact: 'ec-compact', container: 'ec-container', content: 'ec-content', day: 'ec-day', dayHead: 'ec-day-head', dayFoot: 'ec-day-foot', days: 'ec-days', daySide: 'ec-day-side', draggable: 'ec-draggable', dragging: 'ec-dragging', event: 'ec-event', eventBody: 'ec-event-body', eventTag: 'ec-event-tag', eventTime: 'ec-event-time', eventTitle: 'ec-event-title', events: 'ec-events', expander: 'ec-expander', extra: 'ec-extra', ghost: 'ec-ghost', handle: 'ec-handle', header: 'ec-header', hiddenScroll: 'ec-hidden-scroll', highlight: 'ec-highlight', icon: 'ec-icon', line: 'ec-line', lines: 'ec-lines', main: 'ec-main', noEvents: 'ec-no-events', nowIndicator: 'ec-now-indicator', otherMonth: 'ec-other-month', pointer: 'ec-pointer', popup: 'ec-popup', preview: 'ec-preview', resizer: 'ec-resizer', resizingX: 'ec-resizing-x', resizingY: 'ec-resizing-y', resource: 'ec-resource', selecting: 'ec-selecting', sidebar: 'ec-sidebar', sidebarTitle: 'ec-sidebar-title', today: 'ec-today', time: 'ec-time', times: 'ec-times', title: 'ec-title', toolbar: 'ec-toolbar', view: 'ec-timeline ec-resource-week-view', weekdays: ['ec-sun', 'ec-mon', 'ec-tue', 'ec-wed', 'ec-thu', 'ec-fri', 'ec-sat'], withScroll: 'ec-with-scroll', uniform: 'ec-uniform'}`
-  > Views override the default value as follows:
-  >
-  > - dayGridMonth `theme => ({...theme, view: 'ec-day-grid ec-month-view'})`
-  > - listDay `theme => ({...theme, view: 'ec-list ec-day-view'})`
-  > - listMonth `theme => ({...theme, view: 'ec-list ec-month-view'})`
-  > - listWeek `theme => ({...theme, view: 'ec-list ec-week-view'})`
-  > - listYear `theme => ({...theme, view: 'ec-list ec-year-view'})`
-  > - resourceTimeGridDay `theme => ({...theme, view: 'ec-time-grid ec-resource-day-view'})`
-  > - resourceTimeGridWeek `theme => ({...theme, view: 'ec-time-grid ec-resource-week-view'})`
-  > - resourceTimelineDay `theme => ({...theme, view: 'ec-timeline ec-resource-day-view'})`
-  > - resourceTimelineMonth `theme => ({...theme, view: 'ec-timeline ec-resource-month-view'})`
-  > - resourceTimelineWeek `theme => ({...theme, view: 'ec-timeline ec-resource-week-view'})`
-  > - timeGridDay `theme => ({...theme, view: 'ec-time-grid ec-day-view'})`
-  > - timeGridWeek `theme => ({...theme, view: 'ec-time-grid ec-week-view'})`
+    > Views override the default value as follows:
+    >
+    > - dayGridMonth `theme => ({...theme, view: 'ec-day-grid ec-month-view'})`
+    > - listDay `theme => ({...theme, view: 'ec-list ec-day-view'})`
+    > - listMonth `theme => ({...theme, view: 'ec-list ec-month-view'})`
+    > - listWeek `theme => ({...theme, view: 'ec-list ec-week-view'})`
+    > - listYear `theme => ({...theme, view: 'ec-list ec-year-view'})`
+    > - resourceTimeGridDay `theme => ({...theme, view: 'ec-time-grid ec-resource-day-view'})`
+    > - resourceTimeGridWeek `theme => ({...theme, view: 'ec-time-grid ec-resource-week-view'})`
+    > - resourceTimelineDay `theme => ({...theme, view: 'ec-timeline ec-resource-day-view'})`
+    > - resourceTimelineMonth `theme => ({...theme, view: 'ec-timeline ec-resource-month-view'})`
+    > - resourceTimelineWeek `theme => ({...theme, view: 'ec-timeline ec-resource-week-view'})`
+    > - timeGridDay `theme => ({...theme, view: 'ec-time-grid ec-day-view'})`
+    > - timeGridWeek `theme => ({...theme, view: 'ec-time-grid ec-week-view'})`
 
 Defines the CSS classes that the Event Calendar uses to generate HTML markup.
 
@@ -2480,10 +2474,10 @@ function (theme) {
 
 - Type `object` or `function`
 - Default `{year: 'numeric', month: 'short', day: 'numeric'}`
-  > Views override the default value as follows:
-  >
-  > - dayGridMonth `{year: 'numeric', month: 'long'}`
-  > - timeGridDay `{year: 'numeric', month: 'long', day: 'numeric'}`
+    > Views override the default value as follows:
+    >
+    > - dayGridMonth `{year: 'numeric', month: 'long'}`
+    > - timeGridDay `{year: 'numeric', month: 'long', day: 'numeric'}`
 
 Defines the text that is displayed in the header toolbar’s title.
 
@@ -2714,26 +2708,26 @@ In Svelte, methods are available from a component instance:
 
 ```html
 <script>
-  import Calendar from "@event-calendar/core";
-  import TimeGrid from "@event-calendar/time-grid";
+    import Calendar from "@event-calendar/core";
+    import TimeGrid from "@event-calendar/time-grid";
 
-  let ec;
-  let plugins = [TimeGrid];
-  let options = {
-    view: "timeGridWeek",
-    eventSources: [
-      {
-        events: function () {
-          console.log("fetching...");
-          return [];
-        },
-      },
-    ],
-  };
+    let ec;
+    let plugins = [TimeGrid];
+    let options = {
+        view: "timeGridWeek",
+        eventSources: [
+            {
+                events: function () {
+                    console.log("fetching...");
+                    return [];
+                },
+            },
+        ],
+    };
 
-  function invokeMethod() {
-    ec.refetchEvents();
-  }
+    function invokeMethod() {
+        ec.refetchEvents();
+    }
 </script>
 
 <button on:click="{invokeMethod}">Refetch events</button>
@@ -2743,7 +2737,7 @@ In Svelte, methods are available from a component instance:
 ### getOption( name )
 
 - Parameters
-  - `name` `string` The option name
+    - `name` `string` The option name
 - Return value `mixed` or `undefined`
 
 This method allows you to get the current value of any calendar option.
@@ -2756,8 +2750,8 @@ let date = ec.getOption("date");
 ### setOption( name, value )
 
 - Parameters
-  - `name` `string` The option name
-  - `value` `mixed` The new option value
+    - `name` `string` The option name
+    - `value` `mixed` The new option value
 - Return value `EventCalendar` The calendar instance for chaining
 
 This method allows you to set new value to any calendar option.
@@ -2770,7 +2764,7 @@ ec.setOption("date", new Date());
 ### addEvent( event )
 
 - Parameters
-  - `event` `object` A plain object that will be parsed into an [Event](#event-object) object
+    - `event` `object` A plain object that will be parsed into an [Event](#event-object) object
 - Return value [Event](#event-object) object or `null`
 
 Adds a new event to the calendar.
@@ -2778,7 +2772,7 @@ Adds a new event to the calendar.
 ### getEventById( id )
 
 - Parameters
-  - `id` `string|integer` The ID of the event
+    - `id` `string|integer` The ID of the event
 - Return value [Event](#event-object) object or `null`
 
 Returns a single event with the matching `id`.
@@ -2792,7 +2786,7 @@ Returns an array of events that the calendar has in memory.
 ### removeEventById( id )
 
 - Parameters
-  - `id` `string|integer` The ID of the event
+    - `id` `string|integer` The ID of the event
 - Return value `EventCalendar` The calendar instance for chaining
 
 Removes a single event with the matching `id`.
@@ -2800,7 +2794,7 @@ Removes a single event with the matching `id`.
 ### updateEvent( event )
 
 - Parameters
-  - `event` `object` A plain object or [Event](#event-object) object
+    - `event` `object` A plain object or [Event](#event-object) object
 - Return value `EventCalendar` The calendar instance for chaining
 
 Updates a single event with the matching `event`.`id`.
@@ -3475,20 +3469,20 @@ The `timeline` views support displaying nested resources. Nested resources can b
 
 ```js
 resources: [
-  {
-    id: 1,
-    title: "Resource A",
-    children: [
-      {
-        id: 11,
-        title: "Resource A1",
-      },
-      {
-        id: 12,
-        title: "Resource A2",
-      },
-    ],
-  },
+    {
+        id: 1,
+        title: "Resource A",
+        children: [
+            {
+                id: 11,
+                title: "Resource A1",
+            },
+            {
+                id: 12,
+                title: "Resource A2",
+            },
+        ],
+    },
 ];
 ```
 
@@ -3561,8 +3555,8 @@ If you do need to set the background or font color of the calendar, use local CS
 
 ```css
 .ec {
-  --ec-bg-color: #22272e;
-  --ec-text-color: #adbac7;
+    --ec-bg-color: #22272e;
+    --ec-text-color: #adbac7;
 }
 ```
 

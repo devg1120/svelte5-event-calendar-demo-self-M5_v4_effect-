@@ -1,16 +1,16 @@
 <script>
     //import { run, createBubbler, stopPropagation } from 'svelte/legacy';
-    import {  createBubbler, stopPropagation } from 'svelte/legacy';
+    import { createBubbler, stopPropagation } from "svelte/legacy";
 
     const bubble = createBubbler();
-    import {getContext, tick} from 'svelte';
-    import {ancestor, rect, setContent, outsideEvent, keyEnter, toISOString} from '@event-calendar/core';
-    import Event from './Event.svelte';
+    import { getContext, tick } from "svelte";
+    import { ancestor, rect, setContent, outsideEvent, keyEnter, toISOString } from "@event-calendar/core";
+    import Event from "./Event.svelte";
 
-    let {buttonText, theme, _interaction, _intlDayPopover, _popupDate, _popupChunks} = getContext('state');
+    let { buttonText, theme, _interaction, _intlDayPopover, _popupDate, _popupChunks } = getContext("state");
 
     let el = $state();
-    let style = $state('');
+    let style = $state("");
 
     function position() {
         let dayEl = ancestor(el, 1);
@@ -18,7 +18,7 @@
         let popupRect = rect(el);
         let dayRect = rect(dayEl);
         let bodyRect = rect(bodyEl);
-        style = '';
+        style = "";
 
         let left;
         if (popupRect.width >= bodyRect.width) {
@@ -54,7 +54,7 @@
     function reposition() {
         // Skip the first call (el is not defined at this time)
         if (el) {
-            style = '';
+            style = "";
             // Let chunks to update/mount then position the popup
             tick().then(() => {
                 if ($_popupChunks.length) {
@@ -69,7 +69,7 @@
     $effect(() => {
         if ($_popupChunks) {
             // Fire reposition only on popup chunks change
-           reposition();
+            reposition();
         }
     });
 
@@ -85,24 +85,24 @@
 
 <div
     bind:this={el}
-    class="{$theme.popup}"
+    class={$theme.popup}
     {style}
-    use:outsideEvent={'pointerdown'}
-    onpointerdown={stopPropagation(bubble('pointerdown'))}
+    use:outsideEvent={"pointerdown"}
+    onpointerdown={stopPropagation(bubble("pointerdown"))}
     onpointerdownoutside={handlePointerDownOutside}
 >
-    <div class="{$theme.dayHead}">
-        <time datetime="{toISOString($_popupDate, 10)}" use:setContent={$_intlDayPopover.format($_popupDate)}></time>
+    <div class={$theme.dayHead}>
+        <time datetime={toISOString($_popupDate, 10)} use:setContent={$_intlDayPopover.format($_popupDate)}></time>
         <!-- svelte-ignore a11y_missing_attribute -->
         <a
             role="button"
             tabindex="0"
             aria-label={$buttonText.close}
             onclick={stopPropagation(close)}
-            onkeydown={keyEnter(close)}
-        >&times;</a>
+            onkeydown={keyEnter(close)}>&times;</a
+        >
     </div>
-    <div class="{$theme.events}">
+    <div class={$theme.events}>
         {#each $_popupChunks as chunk (chunk.event)}
             <Event {chunk} inPopup />
         {/each}

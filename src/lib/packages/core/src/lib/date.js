@@ -9,17 +9,18 @@ export function createDate(input = undefined) {
 }
 
 export function createDuration(input) {
-    if (typeof input === 'number') {
-        input = {seconds: input};
-    } else if (typeof input === 'string') {
+    if (typeof input === "number") {
+        input = { seconds: input };
+    } else if (typeof input === "string") {
         // Expected format hh[:mm[:ss]]
-        let seconds = 0, exp = 2;
-        for (let part of input.split(':', 3)) {
+        let seconds = 0,
+            exp = 2;
+        for (let part of input.split(":", 3)) {
             seconds += parseInt(part, 10) * Math.pow(60, exp--);
         }
-        input = {seconds};
+        input = { seconds };
     } else if (input instanceof Date) {
-        input = {hours: input.getUTCHours(), minutes: input.getUTCMinutes(), seconds: input.getUTCSeconds()};
+        input = { hours: input.getUTCHours(), minutes: input.getUTCMinutes(), seconds: input.getUTCSeconds() };
     }
 
     let weeks = input.weeks || input.week || 0;
@@ -28,10 +29,11 @@ export function createDuration(input) {
         years: input.years || input.year || 0,
         months: input.months || input.month || 0,
         days: weeks * 7 + (input.days || input.day || 0),
-        seconds: (input.hours || input.hour || 0) * 60 * 60 +
+        seconds:
+            (input.hours || input.hour || 0) * 60 * 60 +
             (input.minutes || input.minute || 0) * 60 +
             (input.seconds || input.second || 0),
-        inWeeks: !!weeks
+        inWeeks: !!weeks,
     };
 }
 
@@ -83,7 +85,7 @@ export function toLocalDate(date) {
         date.getUTCDate(),
         date.getUTCHours(),
         date.getUTCMinutes(),
-        date.getUTCSeconds()
+        date.getUTCSeconds(),
     );
 }
 
@@ -92,7 +94,7 @@ export function toISOString(date, len = 19) {
 }
 
 export function datesEqual(date1, ...dates2) {
-    return dates2.every(date2 => date1.getTime() === date2.getTime());
+    return dates2.every((date2) => date1.getTime() === date2.getTime());
 }
 
 export function nextClosestDay(date, day) {
@@ -109,9 +111,9 @@ export function prevClosestDay(date, day) {
 
 /**
  * Check whether given date is string which contains no time part
-  */
+ */
 export function noTimePart(date) {
-    return typeof date === 'string' && date.length <= 10;
+    return typeof date === "string" && date.length <= 10;
 }
 
 /**
@@ -159,18 +161,20 @@ export function prevDate(date, duration, hiddenDays) {
 export function getWeekNumber(date, firstDay) {
     // Copy date so don't modify original
     date = cloneDate(date);
-    if (firstDay == 0) {  // Western
+    if (firstDay == 0) {
+        // Western
         // Set to nearest Saturday: current date + 6 - current day number
         date.setUTCDate(date.getUTCDate() + 6 - date.getUTCDay());
-    } else {  // ISO
+    } else {
+        // ISO
         // Set to nearest Thursday: current date + 4 - current day number
         // Make Sunday's day number 7
         date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
     }
     // Get first day of year
-    let yearStart = new Date(Date.UTC(date.getUTCFullYear(),0,1));
+    let yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
     // Calculate full weeks to `date`
-    return Math.ceil((((date - yearStart) / 1000 / DAY_IN_SECONDS) + 1) / 7);
+    return Math.ceil(((date - yearStart) / 1000 / DAY_IN_SECONDS + 1) / 7);
 }
 
 /**
@@ -178,24 +182,28 @@ export function getWeekNumber(date, firstDay) {
  */
 
 function _fromLocalDate(date) {
-    return new Date(Date.UTC(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate(),
-        date.getHours(),
-        date.getMinutes(),
-        date.getSeconds()
-    ));
+    return new Date(
+        Date.UTC(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate(),
+            date.getHours(),
+            date.getMinutes(),
+            date.getSeconds(),
+        ),
+    );
 }
 
 function _fromISOString(str) {
     const parts = str.match(/\d+/g);
-    return new Date(Date.UTC(
-        Number(parts[0]),
-        Number(parts[1]) - 1,
-        Number(parts[2]),
-        Number(parts[3] || 0),
-        Number(parts[4] || 0),
-        Number(parts[5] || 0)
-    ));
+    return new Date(
+        Date.UTC(
+            Number(parts[0]),
+            Number(parts[1]) - 1,
+            Number(parts[2]),
+            Number(parts[3] || 0),
+            Number(parts[4] || 0),
+            Number(parts[5] || 0),
+        ),
+    );
 }

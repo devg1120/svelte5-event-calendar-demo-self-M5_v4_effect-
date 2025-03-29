@@ -1,6 +1,6 @@
-import {get, writable} from 'svelte/store';
-import {tick} from 'svelte';
-import {createOptions, createParsers} from './options';
+import { get, writable } from "svelte/store";
+import { tick } from "svelte";
+import { createOptions, createParsers } from "./options";
 import {
     activeRange,
     currentRange,
@@ -10,9 +10,9 @@ import {
     today,
     viewDates,
     viewTitle,
-    view as view2  // hack to avoid a runtime error in SvelteKit dev mode (ReferenceError: view is not defined)
-} from './stores';
-import {keys, intl, intlRange, isFunction, identity} from '../lib.js';
+    view as view2, // hack to avoid a runtime error in SvelteKit dev mode (ReferenceError: view is not defined)
+} from "./stores";
+import { keys, intl, intlRange, isFunction, identity } from "../lib.js";
 
 export default class {
     constructor(plugins, input) {
@@ -32,14 +32,14 @@ export default class {
         }
 
         // Private stores
-        this._queue = writable(new Map());  // debounce queue (beforeUpdate)
-        this._queue2 = writable(new Map());  // debounce queue (afterUpdate)
-        this._tasks = new Map();  // timeout IDs for tasks
-        this._auxiliary = writable([]);  // auxiliary components
+        this._queue = writable(new Map()); // debounce queue (beforeUpdate)
+        this._queue2 = writable(new Map()); // debounce queue (afterUpdate)
+        this._tasks = new Map(); // timeout IDs for tasks
+        this._auxiliary = writable([]); // auxiliary components
         this._dayGrid = dayGrid(this);
         this._currentRange = currentRange(this);
         this._activeRange = activeRange(this);
-        this._fetchedRange = writable({start: undefined, end: undefined});
+        this._fetchedRange = writable({ start: undefined, end: undefined });
         this._events = events(this);
         this._now = now();
         this._today = today(this);
@@ -56,9 +56,9 @@ export default class {
         this._viewComponent = writable(undefined);
         // Interaction
         this._interaction = writable({});
-        this._iEvents = writable([null, null]);  // interaction events: [drag/resize, pointer]
-        this._iClasses = writable(identity);  // interaction event css classes
-        this._iClass = writable(undefined);  // interaction css class for entire calendar
+        this._iEvents = writable([null, null]); // interaction events: [drag/resize, pointer]
+        this._iClasses = writable(identity); // interaction event css classes
+        this._iClass = writable(undefined); // interaction css class for entire calendar
 
         // Set & Get
         this._set = (key, value) => {
@@ -69,7 +69,7 @@ export default class {
                 this[key].set(value);
             }
         };
-        this._get = key => validKey(key, this) ? get(this[key]) : undefined;
+        this._get = (key) => (validKey(key, this) ? get(this[key]) : undefined);
 
         // Let plugins create their private stores
         for (let plugin of plugins) {
@@ -91,33 +91,33 @@ export default class {
             filterOpts(opts, this);
             // Process options
             for (let key of keys(opts)) {
-                let {set, _set = set, ...rest} = this[key];
+                let { set, _set = set, ...rest } = this[key];
 
                 this[key] = {
                     // Set value in all views
-                    set: ['buttonText', 'theme'].includes(key)
-                        ? value => {
-                            if (isFunction(value)) {
-                                let result = value(defOpts[key]);
-                                opts[key] = result;
-                                set(set === _set ? result : value);
-                            } else {
-                                opts[key] = value;
-                                set(value);
-                            }
-                        }
-                        : value => {
-                            opts[key] = value;
-                            set(value);
-                        },
+                    set: ["buttonText", "theme"].includes(key)
+                        ? (value) => {
+                              if (isFunction(value)) {
+                                  let result = value(defOpts[key]);
+                                  opts[key] = result;
+                                  set(set === _set ? result : value);
+                              } else {
+                                  opts[key] = value;
+                                  set(value);
+                              }
+                          }
+                        : (value) => {
+                              opts[key] = value;
+                              set(value);
+                          },
                     _set,
-                    ...rest
+                    ...rest,
                 };
             }
             // When view changes...
-            this.view.subscribe(newView => {
+            this.view.subscribe((newView) => {
                 if (newView === view) {
-			console.log("view change",newView)
+                    console.log("view change", newView);
                     // switch view component
                     this._viewComponent.set(component);
                     if (isFunction(opts.viewDidMount)) {
@@ -134,7 +134,7 @@ export default class {
 }
 
 function parseOpts(opts, parsers) {
-    let result = {...opts};
+    let result = { ...opts };
     for (let key of keys(parsers)) {
         if (key in result) {
             result[key] = parsers[key](result[key]);
@@ -153,7 +153,7 @@ function mergeOpts(...args) {
     let result = {};
     for (let opts of args) {
         let override = {};
-        for (let key of ['buttonText', 'theme']) {
+        for (let key of ["buttonText", "theme"]) {
             if (isFunction(opts[key])) {
                 override[key] = opts[key](result[key]);
             }
@@ -161,7 +161,7 @@ function mergeOpts(...args) {
         result = {
             ...result,
             ...opts,
-            ...override
+            ...override,
         };
     }
     return result;
@@ -169,10 +169,10 @@ function mergeOpts(...args) {
 
 function filterOpts(opts, state) {
     keys(opts)
-        .filter(key => !validKey(key, state) || key == 'view')
-        .forEach(key => delete opts[key]);
+        .filter((key) => !validKey(key, state) || key == "view")
+        .forEach((key) => delete opts[key]);
 }
 
 function validKey(key, state) {
-    return state.hasOwnProperty(key) && key[0] !== '_';
+    return state.hasOwnProperty(key) && key[0] !== "_";
 }

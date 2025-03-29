@@ -1,14 +1,12 @@
 <script lang="ts">
-    //import { run } from 'svelte/legacy';
     import { untrack } from "svelte";
-    import './styles/index.scss';
-    //import {setContext, beforeUpdate, afterUpdate} from 'svelte';
-    import {setContext } from 'svelte';
-    import {get} from 'svelte/store';
-    import {diff} from './storage/options';
-    import State from './storage/state';
-    import Toolbar from './Toolbar.svelte';
-    import Auxiliary from './Auxiliary.svelte';
+    import "./styles/index.scss";
+    import { setContext } from "svelte";
+    import { get } from "svelte/store";
+    import { diff } from "./storage/options";
+    import State from "./storage/state";
+    import Toolbar from "./Toolbar.svelte";
+    import Auxiliary from "./Auxiliary.svelte";
     import {
         assign,
         createEvents,
@@ -21,20 +19,36 @@
         hasYScroll,
         listView,
         task,
-        prevDate, nextDate
-    } from './lib.js';
+        prevDate,
+        nextDate,
+    } from "./lib.js";
 
     let { plugins = [], options = {} } = $props();
 
     let state = new State(plugins, options);
 
-    setContext('state', state);
+    setContext("state", state);
 
-    let { _viewComponent, _bodyEl, _interaction, _iClass, _events, _queue, _queue2, _tasks, _scrollable,
-        date, duration, hiddenDays, height, theme, view} = state;
+    let {
+        _viewComponent,
+        _bodyEl,
+        _interaction,
+        _iClass,
+        _events,
+        _queue,
+        _queue2,
+        _tasks,
+        _scrollable,
+        date,
+        duration,
+        hiddenDays,
+        height,
+        theme,
+        view,
+    } = state;
 
     // Reactively update options that did change
-    let prevOptions = {...options};
+    let prevOptions = { ...options };
 
     export function setOption(name, value) {
         state._set(name, value);
@@ -47,7 +61,7 @@
     }
 
     export function refetchEvents() {
-        state._fetchedRange.set({start: undefined, end: undefined});
+        state._fetchedRange.set({ start: undefined, end: undefined });
         return this;
     }
 
@@ -84,7 +98,7 @@
     }
 
     export function removeEventById(id) {
-        let idx = $_events.findIndex(event => event.id == id);
+        let idx = $_events.findIndex((event) => event.id == id);
         if (idx >= 0) {
             $_events.splice(idx, 1);
             $_events = $_events;
@@ -122,29 +136,24 @@
         return this;
     }
 
-
-/*
+    /*
     _events.subscribe(v => {
         console.log("Calender UP",$_events[5]);
     });
 */
 
-    //beforeUpdate(() => {
     $effect.pre(() => {
-//return untrack(() => {
+        //return untrack(() => {
         flushDebounce($_queue);
-// })
+        // })
     });
 
-    //afterUpdate(() => {
     $effect(() => {
-//return untrack(() => {
+        //return untrack(() => {
         flushDebounce($_queue2);
         task(recheckScrollable, null, _tasks);
- //})
+        //})
     });
-
-
 
     function recheckScrollable() {
         if ($_bodyEl) {
@@ -158,21 +167,19 @@
     });
 
     const SvelteComponent = $derived($_viewComponent);
-
-
-
 </script>
 
 <div
-    class="{$theme.calendar} {$theme.view}{$_scrollable ? ' ' + $theme.withScroll : ''}{$_iClass ? ' ' + $theme[$_iClass] : ''}"
+    class="{$theme.calendar} {$theme.view}{$_scrollable ? ' ' + $theme.withScroll : ''}{$_iClass
+        ? ' ' + $theme[$_iClass]
+        : ''}"
     style:height={$height}
-    role="{listView($view) ? 'list' : 'table'}"
+    role={listView($view) ? "list" : "table"}
 >
+    <Toolbar />
 
-    <Toolbar/>
-
-    <SvelteComponent/>
+    <SvelteComponent />
 </div>
-<Auxiliary/>
+<Auxiliary />
 
-<svelte:window onresize={recheckScrollable}/>
+<svelte:window onresize={recheckScrollable} />

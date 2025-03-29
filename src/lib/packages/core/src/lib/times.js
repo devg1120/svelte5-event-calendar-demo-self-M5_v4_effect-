@@ -1,6 +1,6 @@
-import {addDuration, cloneDate, createDuration, DAY_IN_SECONDS, toISOString, toSeconds} from './date.js';
-import {max as maxFn, min as minFn, isFunction} from './utils.js';
-import {bgEvent} from './events.js';
+import { addDuration, cloneDate, createDuration, DAY_IN_SECONDS, toISOString, toSeconds } from "./date.js";
+import { max as maxFn, min as minFn, isFunction } from "./utils.js";
+import { bgEvent } from "./events.js";
 
 export function createTimes(date, $slotDuration, $_slotTimeLimits, $_intlSlotLabel) {
     date = cloneDate(date);
@@ -11,11 +11,7 @@ export function createTimes(date, $slotDuration, $_slotTimeLimits, $_intlSlotLab
     addDuration(date, $_slotTimeLimits.min);
     addDuration(end, $_slotTimeLimits.max);
     while (date < end) {
-        times.push([
-            toISOString(date),
-            $_intlSlotLabel.format(date),
-            times.length && (i || !compact)
-        ]);
+        times.push([toISOString(date), $_intlSlotLabel.format(date), times.length && (i || !compact)]);
         addDuration(date, $slotDuration);
         i = 1 - i;
     }
@@ -33,7 +29,7 @@ export function createSlotTimeLimits($slotMinTime, $slotMaxTime, $flexibleSlotTi
         let maxMax = createDuration(maxFn(toSeconds(max), toSeconds(minMin) + DAY_IN_SECONDS));
         let filter = isFunction($flexibleSlotTimeLimits?.eventFilter)
             ? $flexibleSlotTimeLimits.eventFilter
-            : event => !bgEvent(event.display);
+            : (event) => !bgEvent(event.display);
         loop: for (let date of $_viewDates) {
             let start = addDuration(cloneDate(date), min);
             let end = addDuration(cloneDate(date), max);
@@ -61,5 +57,5 @@ export function createSlotTimeLimits($slotMinTime, $slotMaxTime, $flexibleSlotTi
         }
     }
 
-    return {min, max};
+    return { min, max };
 }

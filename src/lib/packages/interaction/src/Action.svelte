@@ -1,25 +1,71 @@
 <script>
-    import { createBubbler, nonpassive } from 'svelte/legacy';
-    //import Calendar  from '../../core/src/Calendar.svelte' ;
-    //import { updateEvent as ue }  from '../../core/src/Calendar.svelte' ;
-
+    import { createBubbler, nonpassive } from "svelte/legacy";
 
     const bubble = createBubbler();
-    import {getContext } from 'svelte';
+    import { getContext } from "svelte";
     import {
-        addDay, addDuration, ancestor, assign, cloneDate,  cloneEvent, copyTime, createDuration, getElementWithPayload,
-        getPayload, isFunction, listen, listView, max, min, rect, runAll, subtractDay, subtractDuration, timelineView,
-        toEventWithLocalDates, toISOString, toLocalDate, toViewWithLocalDates
-    } from '@event-calendar/core';
-    import {animate, limit} from './utils';
+        addDay,
+        addDuration,
+        ancestor,
+        assign,
+        cloneDate,
+        cloneEvent,
+        copyTime,
+        createDuration,
+        getElementWithPayload,
+        getPayload,
+        isFunction,
+        listen,
+        listView,
+        max,
+        min,
+        rect,
+        runAll,
+        subtractDay,
+        subtractDuration,
+        timelineView,
+        toEventWithLocalDates,
+        toISOString,
+        toLocalDate,
+        toViewWithLocalDates,
+    } from "@event-calendar/core";
+    import { animate, limit } from "./utils";
 
-    let {_iEvents, _iClass, _events, _view, _dayGrid, _draggable, _bodyEl, dateClick, dragScroll, datesAboveResources,
-        eventDragMinDistance, eventDragStart, eventDragStop, eventDrop, eventLongPressDelay,
-        eventResizeStart, eventResizeStop, eventResize, longPressDelay, selectable, select: selectFn,
-        selectBackgroundColor, selectLongPressDelay, selectMinDistance, slotDuration, slotHeight, slotWidth, unselect: unselectFn,
-        unselectAuto, unselectCancel, validRange, view} = getContext('state');
+    let {
+        _iEvents,
+        _iClass,
+        _events,
+        _view,
+        _dayGrid,
+        _draggable,
+        _bodyEl,
+        dateClick,
+        dragScroll,
+        datesAboveResources,
+        eventDragMinDistance,
+        eventDragStart,
+        eventDragStop,
+        eventDrop,
+        eventLongPressDelay,
+        eventResizeStart,
+        eventResizeStop,
+        eventResize,
+        longPressDelay,
+        selectable,
+        select: selectFn,
+        selectBackgroundColor,
+        selectLongPressDelay,
+        selectMinDistance,
+        slotDuration,
+        slotHeight,
+        slotWidth,
+        unselect: unselectFn,
+        unselectAuto,
+        unselectCancel,
+        validRange,
+        view,
+    } = getContext("state");
 
-    //let _events_ = $state.raw(_events)
     const ACTION_DRAG = 1;
     const ACTION_RESIZE_END = 2;
     const ACTION_RESIZE_START = 3;
@@ -38,22 +84,26 @@
     let delta;
     let allDay;
     let iClass;
-    let minResize;  // minimum end time when resizing
-    let selectStep;  // minimum selection step
-    let selected;  // whether selection has been made
-    let noDateClick;  // do not perform date click
-    let timer = $state();  // timer for long press delays
+    let minResize; // minimum end time when resizing
+    let selectStep; // minimum selection step
+    let selected; // whether selection has been made
+    let noDateClick; // do not perform date click
+    let timer = $state(); // timer for long press delays
     let viewport;
     let margin;
-    let extraDuration;  // extra duration for zero duration events
+    let extraDuration; // extra duration for zero duration events
 
     export function drag(eventToDrag, jsEvent, resize, forceDate, forceMargin, zeroDuration) {
         if (!action) {
-            action = validJsEvent(jsEvent) ? (
-                resize
-                    ? (resize[1] == 'start' ? ACTION_RESIZE_START : ACTION_RESIZE_END)
-                    : ($_draggable(eventToDrag) ? ACTION_DRAG : ACTION_NO_ACTION)
-            ) : ACTION_NO_ACTION;
+            action = validJsEvent(jsEvent)
+                ? resize
+                    ? resize[1] == "start"
+                        ? ACTION_RESIZE_START
+                        : ACTION_RESIZE_END
+                    : $_draggable(eventToDrag)
+                      ? ACTION_DRAG
+                      : ACTION_NO_ACTION
+                : ACTION_NO_ACTION;
 
             if (complexAction()) {
                 event = eventToDrag;
@@ -69,7 +119,7 @@
                     margin = forceMargin;
                 }
 
-                iClass = resize ? (resize[0] == 'x' ? 'resizingX' : 'resizingY') : 'dragging';
+                iClass = resize ? (resize[0] == "x" ? "resizingX" : "resizingY") : "dragging";
 
                 if (resize) {
                     // Calculate the limits for resize
@@ -116,23 +166,25 @@
 
     export function select(jsEvent) {
         if (!action) {
-            action = validJsEvent(jsEvent) ? (
-                $selectable && !listView($view) ? ACTION_SELECT : ACTION_CLICK
-            ) : ACTION_NO_ACTION;
+            action = validJsEvent(jsEvent)
+                ? $selectable && !listView($view)
+                    ? ACTION_SELECT
+                    : ACTION_CLICK
+                : ACTION_NO_ACTION;
 
             if (complexAction()) {
                 common(jsEvent);
 
-                iClass = 'selecting';
+                iClass = "selecting";
 
-                selectStep = allDay ? createDuration({day: 1}) : $slotDuration;
+                selectStep = allDay ? createDuration({ day: 1 }) : $slotDuration;
 
                 // Create dummy source event
                 event = {
                     allDay,
                     start: date,
                     end: addDuration(cloneDate(date), selectStep),
-                    resourceIds: resource ? [resource.id] : []
+                    resourceIds: resource ? [resource.id] : [],
                 };
 
                 move(jsEvent);
@@ -146,14 +198,14 @@
         }
     }
 
-	function common(jsEvent) {
+    function common(jsEvent) {
         window.getSelection().removeAllRanges();
 
         fromX = toX = jsEvent.clientX;
         fromY = toY = jsEvent.clientY;
 
         let dayEl = getElementWithPayload(toX, toY);
-        ({allDay, date, resource} = getPayload(dayEl)(toX, toY));
+        ({ allDay, date, resource } = getPayload(dayEl)(toX, toY));
 
         if (timelineView($view)) {
             bodyEl = clipEl = $_bodyEl;
@@ -163,21 +215,26 @@
         }
         calcViewport();
 
-        if (jsEvent.pointerType !== 'mouse') {
+        if (jsEvent.pointerType !== "mouse") {
             // For touch devices init long press delay
-            timer = setTimeout(() => {
-                if (action) {
-                    interacting = true;
-                    move(jsEvent);
-                }
-            }, (selecting() ? $selectLongPressDelay : $eventLongPressDelay) ?? $longPressDelay);
+            timer = setTimeout(
+                () => {
+                    if (action) {
+                        interacting = true;
+                        move(jsEvent);
+                    }
+                },
+                (selecting() ? $selectLongPressDelay : $eventLongPressDelay) ?? $longPressDelay,
+            );
         }
     }
 
     function move(jsEvent) {
         if (
             interacting ||
-            jsEvent && jsEvent.pointerType === 'mouse' && distance() >= (selecting() ? $selectMinDistance : $eventDragMinDistance)
+            (jsEvent &&
+                jsEvent.pointerType === "mouse" &&
+                distance() >= (selecting() ? $selectMinDistance : $eventDragMinDistance))
         ) {
             interacting = true;
             unselect(jsEvent);
@@ -194,7 +251,7 @@
             let payload = findPayload(findDayEl());
             if (payload) {
                 let newAllDay;
-                ({allDay: newAllDay, date: newDate, resource: newResource} = payload);
+                ({ allDay: newAllDay, date: newDate, resource: newResource } = payload);
 
                 if (newAllDay === allDay) {
                     delta = createDuration((newDate - date) / 1000);
@@ -228,7 +285,7 @@
                             // Dragging
                             $_iEvents[0].start = addDuration(cloneDate(event.start), delta);
                             if (resource) {
-                                $_iEvents[0].resourceIds = event.resourceIds.filter(id => id !== resource.id);
+                                $_iEvents[0].resourceIds = event.resourceIds.filter((id) => id !== resource.id);
                                 $_iEvents[0].resourceIds.push(newResource.id);
                             }
                         }
@@ -292,7 +349,7 @@
                 if (selecting()) {
                     selected = true;
                     if (isFunction($selectFn)) {
-                        let {start, end} = toEventWithLocalDates($_iEvents[0]);
+                        let { start, end } = toEventWithLocalDates($_iEvents[0]);
                         $selectFn({
                             start,
                             end,
@@ -301,7 +358,7 @@
                             allDay,
                             jsEvent,
                             view: toViewWithLocalDates($_view),
-                            resource
+                            resource,
                         });
                     }
                 } else {
@@ -309,7 +366,7 @@
 
                     let callback = resizing() ? $eventResizeStop : $eventDragStop;
                     if (isFunction(callback)) {
-                        callback({event: toEventWithLocalDates(event), jsEvent, view: toViewWithLocalDates($_view)});
+                        callback({ event: toEventWithLocalDates(event), jsEvent, view: toViewWithLocalDates($_view) });
                     }
 
                     let oldEvent = cloneEvent(event);
@@ -322,23 +379,25 @@
                         let eventRef = event;
                         let info;
                         if (resizing()) {
-                            info = {endDelta: delta};
+                            info = { endDelta: delta };
                         } else {
                             info = {
                                 delta,
                                 oldResource: resource !== newResource ? resource : undefined,
-                                newResource: resource !== newResource ? newResource : undefined
+                                newResource: resource !== newResource ? newResource : undefined,
                             };
                         }
-                        callback(assign(info, {
-                            event: toEventWithLocalDates(event),
-                            oldEvent: toEventWithLocalDates(oldEvent),
-                            jsEvent,
-                            view: toViewWithLocalDates($_view),
-                            revert() {
-                                updateEvent(eventRef, oldEvent);
-                            }
-                        }));
+                        callback(
+                            assign(info, {
+                                event: toEventWithLocalDates(event),
+                                oldEvent: toEventWithLocalDates(oldEvent),
+                                jsEvent,
+                                view: toViewWithLocalDates($_view),
+                                revert() {
+                                    updateEvent(eventRef, oldEvent);
+                                },
+                            }),
+                        );
                     }
                 }
             } else {
@@ -349,7 +408,7 @@
                         toY = jsEvent.clientY;
                         let dayEl = getElementWithPayload(toX, toY);
                         if (dayEl) {
-                            let {allDay, date, resource} = getPayload(dayEl)(toX, toY);
+                            let { allDay, date, resource } = getPayload(dayEl)(toX, toY);
                             $dateClick({
                                 allDay,
                                 date: toLocalDate(date),
@@ -357,7 +416,7 @@
                                 dayEl,
                                 jsEvent,
                                 view: toViewWithLocalDates($_view),
-                                resource
+                                resource,
                             });
                         }
                     }
@@ -365,8 +424,25 @@
             }
 
             interacting = false;
-            action = fromX = fromY = toX = toY = event = display = date = newDate = resource = newResource = delta =
-                extraDuration = allDay = $_iClass = minResize = selectStep = margin = undefined;
+            action =
+                fromX =
+                fromY =
+                toX =
+                toY =
+                event =
+                display =
+                date =
+                newDate =
+                resource =
+                newResource =
+                delta =
+                extraDuration =
+                allDay =
+                $_iClass =
+                minResize =
+                selectStep =
+                margin =
+                    undefined;
             bodyEl = clipEl = bodyRect = clipRect = undefined;
 
             if (timer) {
@@ -380,10 +456,7 @@
 
     function findDayEl() {
         // Limit coordinates to viewport
-        return getElementWithPayload(
-            limit(toX, viewport[0], viewport[1]),
-            limit(toY, viewport[2], viewport[3])
-        );
+        return getElementWithPayload(limit(toX, viewport[0], viewport[1]), limit(toY, viewport[2], viewport[3]));
     }
 
     function findPayload(dayEl) {
@@ -407,19 +480,19 @@
         bodyRect = rect(bodyEl);
         clipRect = rect(clipEl);
         viewport = [
-            max(0, clipRect.left + (timelineView($view) ? 1 : ($_dayGrid ? 0 : 8))),  // left
-            min(document.documentElement.clientWidth, clipRect.left + clipEl.clientWidth) - 2,  // right
-            max(0, bodyRect.top),  // top
-            min(document.documentElement.clientHeight, bodyRect.top + bodyEl.clientHeight) - 2  // bottom
+            max(0, clipRect.left + (timelineView($view) ? 1 : $_dayGrid ? 0 : 8)), // left
+            min(document.documentElement.clientWidth, clipRect.left + clipEl.clientWidth) - 2, // right
+            max(0, bodyRect.top), // top
+            min(document.documentElement.clientHeight, bodyRect.top + bodyEl.clientHeight) - 2, // bottom
         ];
     }
 
     function createIEvent(jsEvent, callback) {
         if (isFunction(callback)) {
-            callback({event: toEventWithLocalDates(event), jsEvent, view: toViewWithLocalDates($_view)});
+            callback({ event: toEventWithLocalDates(event), jsEvent, view: toViewWithLocalDates($_view) });
         }
         display = event.display;
-        event.display = 'preview';
+        event.display = "preview";
         $_iEvents[0] = cloneEvent(event);
         if (margin !== undefined) {
             $_iEvents[0]._margin = margin;
@@ -427,31 +500,31 @@
         if (extraDuration) {
             addDuration($_iEvents[0].end, extraDuration);
         }
-        event.display = 'ghost';
+        event.display = "ghost";
         //$_events = $_events;
     }
 
     function createIEventSelect() {
         $_iEvents[0] = {
-            id: '{select}',
+            id: "{select}",
             allDay: event.allDay,
             start: event.start,
-            title: '',
-            display: 'preview',
+            title: "",
+            display: "preview",
             extendedProps: {},
             backgroundColor: $selectBackgroundColor,
             resourceIds: event.resourceIds,
             classNames: [],
-            styles: []
+            styles: [],
         };
     }
 
     function destroyIEvent() {
         $_iEvents[0] = null;
     }
-
+    /*
     function updateEvent_org(target, source) {
-    //function updateEvent(target, source) {
+        //function updateEvent(target, source) {
         //console.log("updateEvent source", source)
         //console.log("updateEvent old target", target)
 
@@ -459,34 +532,31 @@
         target.end = source.end;
         target.resourceIds = source.resourceIds;
 
-       // console.log("updateEvent new target", target)
+        // console.log("updateEvent new target", target)
         //$_events[5] = target
-        $_events = $_events
+        $_events = $_events;
 
-	//console.log($_events)
-
+        //console.log($_events)
     }
+    */
 
-    //function updateEvent_static(target, source) {
     function updateEvent(target, source) {
         //console.log("updateEvent old target", target)
         //console.log("updateEvent source", source)
 
-
         for (let event of $_events) {
-	    if (event.id === target.id) {
-	     console.log(event.id)
-             event.start = source.start
-             event.end = source.end
-             //console.log(event)
-             //Calendar.updateEvent(event)
-	     break
-	    }
-
+            if (event.id === target.id) {
+                console.log(event.id);
+                event.start = source.start;
+                event.end = source.end;
+                //console.log(event)
+                //Calendar.updateEvent(event)
+                break;
+            }
         }
-        
-        $_events = $_events
-	//console.log($_events)
+
+        $_events = $_events;
+        //console.log($_events)
     }
 
     function distance() {
@@ -518,7 +588,7 @@
     }
 
     function validJsEvent(jsEvent) {
-        return jsEvent.isPrimary && (jsEvent.pointerType !== 'mouse' || jsEvent.buttons & 1);
+        return jsEvent.isPrimary && (jsEvent.pointerType !== "mouse" || jsEvent.buttons & 1);
     }
 
     export function unselect(jsEvent) {
@@ -528,7 +598,7 @@
             if (isFunction($unselectFn)) {
                 $unselectFn({
                     jsEvent,
-                    view: toViewWithLocalDates($_view)
+                    view: toViewWithLocalDates($_view),
                 });
             }
         }
@@ -546,14 +616,20 @@
             let target = jsEvent.target;
             let stops = [];
             let stop = () => runAll(stops);
-            stops.push(listen(target, 'touchmove', createPreventDefaultHandler(() => interacting)));
-            stops.push(listen(target, 'touchend', stop));
-            stops.push(listen(target, 'touchcancel', stop));
+            stops.push(
+                listen(
+                    target,
+                    "touchmove",
+                    createPreventDefaultHandler(() => interacting),
+                ),
+            );
+            stops.push(listen(target, "touchend", stop));
+            stops.push(listen(target, "touchcancel", stop));
         }
     }
 
     function createPreventDefaultHandler(condition) {
-        return jsEvent => {
+        return (jsEvent) => {
             if (condition()) {
                 jsEvent.preventDefault();
             }
@@ -569,5 +645,5 @@
     onselectstart={createPreventDefaultHandler(complexAction)}
     oncontextmenu={createPreventDefaultHandler(() => timer)}
     ontouchstart={handleTouchStart}
-    use:nonpassive={['touchmove', () => bubble('touchmove')]}
+    use:nonpassive={["touchmove", () => bubble("touchmove")]}
 />

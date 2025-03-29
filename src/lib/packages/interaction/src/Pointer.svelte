@@ -1,19 +1,17 @@
 <script>
-    //import { run } from 'svelte/legacy';
+    import { getContext } from "svelte";
+    import { addDuration, cloneDate, getElementWithPayload, getPayload } from "@event-calendar/core";
 
-    import {getContext} from 'svelte';
-    import {addDuration, cloneDate, getElementWithPayload, getPayload} from '@event-calendar/core';
+    let { _iEvents, slotDuration } = getContext("state");
 
-    let {_iEvents, slotDuration} = getContext('state');
-
-    let x = 0, y = 0;
-
+    let x = 0,
+        y = 0;
 
     function move() {
         let dayEl = getElementWithPayload(x, y);
 
         if (dayEl) {
-            let {allDay, date, resource, disabled} = getPayload(dayEl)(x, y);
+            let { allDay, date, resource, disabled } = getPayload(dayEl)(x, y);
             if (!disabled) {
                 let idx = allDay ? 2 : 1;
 
@@ -45,13 +43,13 @@
 
     function createPointerEvent(idx) {
         $_iEvents[idx] = {
-            id: '{pointer}',
-            title: '',
-            display: 'pointer',
+            id: "{pointer}",
+            title: "",
+            display: "pointer",
             extendedProps: {},
-            backgroundColor: 'transparent',
+            backgroundColor: "transparent",
             classNames: [],
-            styles: []
+            styles: [],
         };
     }
 
@@ -65,7 +63,7 @@
     }
 
     function validEvent(jsEvent) {
-        return jsEvent.isPrimary && jsEvent.pointerType === 'mouse';
+        return jsEvent.isPrimary && jsEvent.pointerType === "mouse";
     }
     $effect(() => {
         if ($_iEvents[0]) {
@@ -74,7 +72,4 @@
     });
 </script>
 
-<svelte:window
-    onpointermove={handlePointerMove}
-    onscroll={handleScroll}
-/>
+<svelte:window onpointermove={handlePointerMove} onscroll={handleScroll} />

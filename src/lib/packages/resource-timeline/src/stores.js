@@ -1,5 +1,5 @@
-import {derived} from 'svelte/store';
-import {createSlotTimeLimits, createTimes, getPayload} from '@event-calendar/core';
+import { derived } from "svelte/store";
+import { createSlotTimeLimits, createTimes, getPayload } from "@event-calendar/core";
 
 // slotTimeLimits per day
 export function dayTimeLimits(state) {
@@ -13,12 +13,12 @@ export function dayTimeLimits(state) {
                     $slotMaxTime,
                     $flexibleSlotTimeLimits,
                     [date],
-                    $_events
+                    $_events,
                 );
             }
 
             return dayTimeLimits;
-        }
+        },
     );
 }
 
@@ -29,16 +29,19 @@ export function dayTimes(state) {
             let dayTimes = {};
             for (let date of $_viewDates) {
                 let time = date.getTime();
-                dayTimes[time] = time in $_dayTimeLimits
-                    ? createTimes(date, $slotDuration, $_dayTimeLimits[time], $_intlSlotLabel)
-                    : [];
+                dayTimes[time] =
+                    time in $_dayTimeLimits
+                        ? createTimes(date, $slotDuration, $_dayTimeLimits[time], $_intlSlotLabel)
+                        : [];
             }
 
             return dayTimes;
-        }
+        },
     );
 }
 
 export function nestedResources(state) {
-    return derived(state.resources, $resources => $resources.some(resource => getPayload(resource).children.length));
+    return derived(state.resources, ($resources) =>
+        $resources.some((resource) => getPayload(resource).children.length),
+    );
 }

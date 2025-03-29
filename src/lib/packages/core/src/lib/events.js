@@ -1,27 +1,38 @@
-import {addDay, addDuration, datesEqual, createDate, cloneDate, setMidnight, toLocalDate, toISOString, noTimePart, copyTime} from './date';
-import {createElement} from './dom';
-import {assign, isArray, isFunction} from './utils';
-import {toViewWithLocalDates} from './view';
+import {
+    addDay,
+    addDuration,
+    datesEqual,
+    createDate,
+    cloneDate,
+    setMidnight,
+    toLocalDate,
+    toISOString,
+    noTimePart,
+    copyTime,
+} from "./date";
+import { createElement } from "./dom";
+import { assign, isArray, isFunction } from "./utils";
+import { toViewWithLocalDates } from "./view";
 
 let eventId = 1;
 export function createEvents(input) {
-    return input.map(event => {
+    return input.map((event) => {
         let result = {
-            id: 'id' in event ? String(event.id) : `{generated-${eventId++}}`,
-            resourceIds: toArrayProp(event, 'resourceId').map(String),
+            id: "id" in event ? String(event.id) : `{generated-${eventId++}}`,
+            resourceIds: toArrayProp(event, "resourceId").map(String),
             allDay: event.allDay ?? (noTimePart(event.start) && noTimePart(event.end)),
             start: createDate(event.start),
             end: createDate(event.end),
-            title: event.title ?? '',
+            title: event.title ?? "",
             editable: event.editable,
             startEditable: event.startEditable,
             durationEditable: event.durationEditable,
-            display: event.display ?? 'auto',
+            display: event.display ?? "auto",
             extendedProps: event.extendedProps ?? {},
             backgroundColor: event.backgroundColor ?? event.color,
             textColor: event.textColor,
-            classNames: toArrayProp(event, 'className'),
-            styles: toArrayProp(event, 'style')
+            classNames: toArrayProp(event, "className"),
+            styles: toArrayProp(event, "style"),
         };
 
         if (result.allDay) {
@@ -31,7 +42,7 @@ export function createEvents(input) {
             setMidnight(result.end);
             if (
                 !datesEqual(result.end, end) ||
-                datesEqual(result.end, result.start)  /** @see https://github.com/vkurko/calendar/issues/50 */
+                datesEqual(result.end, result.start) /** @see https://github.com/vkurko/calendar/issues/50 */
             ) {
                 addDay(result.end);
             }
@@ -42,16 +53,16 @@ export function createEvents(input) {
 }
 
 function toArrayProp(input, propName) {
-    let result = input[propName + 's'] ?? input[propName] ?? [];
+    let result = input[propName + "s"] ?? input[propName] ?? [];
     return isArray(result) ? result : [result];
 }
 
 export function createEventSources(input) {
-    return input.map(source => ({
+    return input.map((source) => ({
         events: source.events,
-        url: (source.url && source.url.trimEnd('&')) || '',
-        method: (source.method && source.method.toUpperCase()) || 'GET',
-        extraParams: source.extraParams || {}
+        url: (source.url && source.url.trimEnd("&")) || "",
+        method: (source.method && source.method.toUpperCase()) || "GET",
+        extraParams: source.extraParams || {},
     }));
 }
 
@@ -59,7 +70,7 @@ export function createEventChunk(event, start, end) {
     let chunk = {
         start: event.start > start ? event.start : start,
         end: event.end < end ? event.end : end,
-        event
+        event,
     };
     chunk.zeroDuration = datesEqual(chunk.start, chunk.end);
 
@@ -74,50 +85,45 @@ export function sortEventChunks(chunks) {
 export function createEventContent(chunk, displayEventEnd, eventContent, theme, _intlEventTime, _view) {
     let timeText = _intlEventTime.formatRange(
         chunk.start,
-        displayEventEnd && chunk.event.display !== 'pointer' && !chunk.zeroDuration
-            ? copyTime(cloneDate(chunk.start), chunk.end)  // make Intl.formatRange output only the time part
-            : chunk.start
+        displayEventEnd && chunk.event.display !== "pointer" && !chunk.zeroDuration
+            ? copyTime(cloneDate(chunk.start), chunk.end) // make Intl.formatRange output only the time part
+            : chunk.start,
     );
     let content;
 
     if (eventContent) {
         content = isFunction(eventContent)
             ? eventContent({
-                event: toEventWithLocalDates(chunk.event),
-                timeText,
-                view: toViewWithLocalDates(_view)
-            })
+                  event: toEventWithLocalDates(chunk.event),
+                  timeText,
+                  view: toViewWithLocalDates(_view),
+              })
             : eventContent;
     }
 
     if (content === undefined) {
         let domNodes;
         switch (chunk.event.display) {
-            case 'background':
+            case "background":
                 domNodes = [];
                 break;
-            case 'pointer':
+            case "pointer":
                 domNodes = [createTimeElement(timeText, chunk, theme)];
                 break;
             default:
                 domNodes = [
-                    ...chunk.event.allDay ? [] : [createTimeElement(timeText, chunk, theme)],
-                    createElement('h4', theme.eventTitle, chunk.event.title)
+                    ...(chunk.event.allDay ? [] : [createTimeElement(timeText, chunk, theme)]),
+                    createElement("h4", theme.eventTitle, chunk.event.title),
                 ];
         }
-        content = {domNodes};
+        content = { domNodes };
     }
 
     return [timeText, content];
 }
 
 function createTimeElement(timeText, chunk, theme) {
-    return createElement(
-        'time',
-        theme.eventTime,
-        timeText,
-        [['datetime', toISOString(chunk.start)]]
-    );
+    return createElement("time", theme.eventTime, timeText, [["datetime", toISOString(chunk.start)]]);
 }
 
 export function createEventClasses(eventClassNames, event, _view) {
@@ -126,13 +132,10 @@ export function createEventClasses(eventClassNames, event, _view) {
         if (isFunction(eventClassNames)) {
             eventClassNames = eventClassNames({
                 event: toEventWithLocalDates(event),
-                view: toViewWithLocalDates(_view)
+                view: toViewWithLocalDates(_view),
             });
         }
-        result = [
-            ...isArray(eventClassNames) ? eventClassNames : [eventClassNames],
-            ...result
-        ];
+        result = [...(isArray(eventClassNames) ? eventClassNames : [eventClassNames]), ...result];
     }
     return result;
 }
@@ -176,7 +179,7 @@ export function prepareEventChunks(chunks, hiddenDays) {
                         } else {
                             longChunks[key] = {
                                 sorted: false,
-                                chunks: [chunk]
+                                chunks: [chunk],
                             };
                         }
                     }
@@ -260,7 +263,7 @@ export function eventIntersects(event, start, end, resources) {
             if (!isArray(resources)) {
                 resources = [resources];
             }
-            return resources.some(resource => event.resourceIds.includes(resource.id));
+            return resources.some((resource) => event.resourceIds.includes(resource.id));
         }
         return true;
     }
@@ -272,17 +275,17 @@ export function helperEvent(display) {
 }
 
 export function bgEvent(display) {
-    return display === 'background';
+    return display === "background";
 }
 
 export function previewEvent(display) {
-    return display === 'preview';
+    return display === "preview";
 }
 
 export function ghostEvent(display) {
-    return display === 'ghost';
+    return display === "ghost";
 }
 
 export function pointerEvent(display) {
-    return display === 'pointer';
+    return display === "pointer";
 }

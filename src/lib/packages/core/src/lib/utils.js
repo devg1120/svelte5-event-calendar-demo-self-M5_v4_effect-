@@ -23,7 +23,7 @@ export function max(...args) {
 }
 
 export function symbol() {
-    return Symbol('ec');
+    return Symbol("ec");
 }
 
 export function isArray(value) {
@@ -31,7 +31,7 @@ export function isArray(value) {
 }
 
 export function isFunction(value) {
-    return typeof value === 'function';
+    return typeof value === "function";
 }
 
 export function run(fn) {

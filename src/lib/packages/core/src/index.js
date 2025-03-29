@@ -1,4 +1,4 @@
-import Calendar from './Calendar.svelte';
+import Calendar from "./Calendar.svelte";
 
 export default class extends Calendar {
     destroy() {
@@ -10,4 +10,4 @@ export default class extends Calendar {
     }
 }
 
-export * from './lib.js';
+export * from "./lib.js";

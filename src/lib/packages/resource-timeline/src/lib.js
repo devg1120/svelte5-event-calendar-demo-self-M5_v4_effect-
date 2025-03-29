@@ -1,11 +1,13 @@
 import {
-    addDay, addDuration,
+    addDay,
+    addDuration,
     cloneDate,
     createDuration,
-    datesEqual, max,
+    datesEqual,
+    max,
     sortEventChunks,
-    toSeconds
-} from '@event-calendar/core';
+    toSeconds,
+} from "@event-calendar/core";
 
 export function prepareEventChunks(chunks, $_viewDates, $_dayTimeLimits, $slotDuration) {
     let longChunks = {};
@@ -130,7 +132,11 @@ export function repositionEvent(chunk, dayChunks, longChunks, height, allDay) {
         if (dayChunk === chunk) {
             continue;
         }
-        if ((allDay || chunk.start < dayChunk.end && chunk.end > dayChunk.start) && chunk.top < dayChunk.bottom && chunk.bottom > dayChunk.top) {
+        if (
+            (allDay || (chunk.start < dayChunk.end && chunk.end > dayChunk.start)) &&
+            chunk.top < dayChunk.bottom &&
+            chunk.bottom > dayChunk.top
+        ) {
             let offset = dayChunk.bottom - chunk.top + 1;
             margin += offset;
             chunk.top += offset;
@@ -142,5 +148,5 @@ export function repositionEvent(chunk, dayChunks, longChunks, height, allDay) {
 }
 
 export function getSlotTimeLimits($_dayTimeLimits, date) {
-    return $_dayTimeLimits[date.getTime()] ?? {min: createDuration(0), max: createDuration(0)};
+    return $_dayTimeLimits[date.getTime()] ?? { min: createDuration(0), max: createDuration(0) };
 }

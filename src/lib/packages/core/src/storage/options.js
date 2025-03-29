@@ -1,28 +1,35 @@
 import {
-    assign, createDate, createDuration, createEvents, createEventSources, createResources, createDateRange, keys,
-    setMidnight
-} from '../lib.js';
+    assign,
+    createDate,
+    createDuration,
+    createEvents,
+    createEventSources,
+    createResources,
+    createDateRange,
+    keys,
+    setMidnight,
+} from "../lib.js";
 
 export function createOptions(plugins) {
     let options = {
         allDayContent: undefined,
         allDaySlot: true,
         buttonText: {
-            today: 'today',
+            today: "today",
         },
         customButtons: {},
         date: new Date(),
         datesSet: undefined,
         dayHeaderFormat: {
-            weekday: 'short',
-            month: 'numeric',
-            day: 'numeric'
+            weekday: "short",
+            month: "numeric",
+            day: "numeric",
         },
         dayHeaderAriaLabelFormat: {
-            dateStyle: 'full'
+            dateStyle: "full",
         },
         displayEventEnd: true,
-        duration: {weeks: 1},
+        duration: { weeks: 1 },
         events: [],
         eventAllUpdated: undefined,
         eventBackgroundColor: undefined,
@@ -36,21 +43,21 @@ export function createOptions(plugins) {
         eventMouseLeave: undefined,
         eventSources: [],
         eventTimeFormat: {
-            hour: 'numeric',
-            minute: '2-digit'
+            hour: "numeric",
+            minute: "2-digit",
         },
         filterEventsWithResources: false,
         filterResourcesWithEvents: false,
         firstDay: 0,
-        flexibleSlotTimeLimits: false,  // ec option
+        flexibleSlotTimeLimits: false, // ec option
         headerToolbar: {
-            start: 'title',
-            center: '',
-            end: 'today prev,next'
+            start: "title",
+            center: "",
+            end: "today prev,next",
         },
         height: undefined,
         hiddenDays: [],
-        highlightedDates: [],  // ec option
+        highlightedDates: [], // ec option
         lazyFetching: true,
         loading: undefined,
         locale: undefined,
@@ -59,67 +66,67 @@ export function createOptions(plugins) {
         resourceLabelDidMount: undefined,
         resources: [],
         selectable: false,
-        scrollTime: '06:00:00',
-        slotDuration: '00:30:00',
+        scrollTime: "06:00:00",
+        slotDuration: "00:30:00",
         slotEventOverlap: true,
-        slotHeight: 24,  // ec option
+        slotHeight: 24, // ec option
         slotLabelFormat: {
-            hour: 'numeric',
-            minute: '2-digit'
+            hour: "numeric",
+            minute: "2-digit",
         },
-        slotMaxTime: '24:00:00',
-        slotMinTime: '00:00:00',
+        slotMaxTime: "24:00:00",
+        slotMinTime: "00:00:00",
         slotWidth: 72,
         theme: {
-            allDay: 'ec-all-day',
-            active: 'ec-active',
-            bgEvent: 'ec-bg-event',
-            bgEvents: 'ec-bg-events',
-            body: 'ec-body',
-            button: 'ec-button',
-            buttonGroup: 'ec-button-group',
-            calendar: 'ec',
-            compact: 'ec-compact',
-            content: 'ec-content',
-            day: 'ec-day',
-            dayHead: 'ec-day-head',
-            days: 'ec-days',
-            disabled: 'ec-disabled',
-            event: 'ec-event',
-            eventBody: 'ec-event-body',
-            eventTime: 'ec-event-time',
-            eventTitle: 'ec-event-title',
-            events: 'ec-events',
-            extra: 'ec-extra',
-            handle: 'ec-handle',
-            header: 'ec-header',
-            hiddenScroll: 'ec-hidden-scroll',
-            highlight: 'ec-highlight',
-            icon: 'ec-icon',
-            line: 'ec-line',
-            lines: 'ec-lines',
-            nowIndicator: 'ec-now-indicator',
-            otherMonth: 'ec-other-month',
-            resource: 'ec-resource',
-            sidebar: 'ec-sidebar',
-            sidebarTitle: 'ec-sidebar-title',
-            today: 'ec-today',
-            time: 'ec-time',
-            title: 'ec-title',
-            toolbar: 'ec-toolbar',
-            view: '',
-            weekdays: ['ec-sun', 'ec-mon', 'ec-tue', 'ec-wed', 'ec-thu', 'ec-fri', 'ec-sat'],
-            withScroll: 'ec-with-scroll'
+            allDay: "ec-all-day",
+            active: "ec-active",
+            bgEvent: "ec-bg-event",
+            bgEvents: "ec-bg-events",
+            body: "ec-body",
+            button: "ec-button",
+            buttonGroup: "ec-button-group",
+            calendar: "ec",
+            compact: "ec-compact",
+            content: "ec-content",
+            day: "ec-day",
+            dayHead: "ec-day-head",
+            days: "ec-days",
+            disabled: "ec-disabled",
+            event: "ec-event",
+            eventBody: "ec-event-body",
+            eventTime: "ec-event-time",
+            eventTitle: "ec-event-title",
+            events: "ec-events",
+            extra: "ec-extra",
+            handle: "ec-handle",
+            header: "ec-header",
+            hiddenScroll: "ec-hidden-scroll",
+            highlight: "ec-highlight",
+            icon: "ec-icon",
+            line: "ec-line",
+            lines: "ec-lines",
+            nowIndicator: "ec-now-indicator",
+            otherMonth: "ec-other-month",
+            resource: "ec-resource",
+            sidebar: "ec-sidebar",
+            sidebarTitle: "ec-sidebar-title",
+            today: "ec-today",
+            time: "ec-time",
+            title: "ec-title",
+            toolbar: "ec-toolbar",
+            view: "",
+            weekdays: ["ec-sun", "ec-mon", "ec-tue", "ec-wed", "ec-thu", "ec-fri", "ec-sat"],
+            withScroll: "ec-with-scroll",
         },
         titleFormat: {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
+            year: "numeric",
+            month: "short",
+            day: "numeric",
         },
         validRange: undefined,
         view: undefined,
         viewDidMount: undefined,
-        views: {}
+        views: {},
     };
 
     for (let plugin of plugins) {
@@ -131,18 +138,18 @@ export function createOptions(plugins) {
 
 export function createParsers(plugins) {
     let parsers = {
-        date: date => setMidnight(createDate(date)),
+        date: (date) => setMidnight(createDate(date)),
         duration: createDuration,
         events: createEvents,
         eventSources: createEventSources,
-        hiddenDays: days => [...new Set(days)],
-        highlightedDates: dates => dates.map(date => setMidnight(createDate(date))),
+        hiddenDays: (days) => [...new Set(days)],
+        highlightedDates: (dates) => dates.map((date) => setMidnight(createDate(date))),
         resources: createResources,
         scrollTime: createDuration,
         slotDuration: createDuration,
         slotMaxTime: createDuration,
         slotMinTime: createDuration,
-        validRange: createDateRange
+        validRange: createDateRange,
     };
 
     for (let plugin of plugins) {

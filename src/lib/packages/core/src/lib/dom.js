@@ -1,9 +1,9 @@
-import {hasPayload} from './payload.js';
+import { hasPayload } from "./payload.js";
 
 export function createElement(tag, className, content, attrs = []) {
     let el = document.createElement(tag);
     el.className = className;
-    if (typeof content == 'string') {
+    if (typeof content == "string") {
         el.innerText = content;
     } else if (content.domNodes) {
         el.replaceChildren(...content.domNodes);

@@ -1,12 +1,10 @@
 <script lang="ts">
-    import { run } from 'svelte/legacy';
-
-    import {getContext} from 'svelte';
-    import {getPayload, identity} from '@event-calendar/core';
+    import { getContext } from "svelte";
+    import { getPayload, identity } from "@event-calendar/core";
 
     let { resource } = $props();
 
-    let {resources, theme} = getContext('state');
+    let { resources, theme } = getContext("state");
 
     let payload = $state({});
 
@@ -32,12 +30,12 @@
 </script>
 
 {#each Array(payload.level) as level}
-    <span class="{$theme.expander}"></span>
+    <span class={$theme.expander}></span>
 {/each}
 
-<span class="{$theme.expander}">
+<span class={$theme.expander}>
     {#if payload.children.length}
-        <button class="{$theme.button}" onclick={handleClick}>
+        <button class={$theme.button} onclick={handleClick}>
             {#if payload.expanded}&minus;{:else}&plus;{/if}
         </button>
     {/if}

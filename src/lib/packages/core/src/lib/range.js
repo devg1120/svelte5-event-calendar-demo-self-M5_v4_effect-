@@ -1,9 +1,9 @@
-import {createDate, setMidnight} from './date.js';
+import { createDate, setMidnight } from "./date.js";
 
 export function createDateRange(input) {
     let start, end;
     if (input) {
-        ({start, end} = input);
+        ({ start, end } = input);
         if (start) {
             start = setMidnight(createDate(start));
         }
@@ -11,11 +11,11 @@ export function createDateRange(input) {
             end = setMidnight(createDate(end));
         }
     }
-    return {start, end};
+    return { start, end };
 }
 
 export function outsideRange(date, range) {
-    return range.start && date < range.start || range.end && date > range.end;
+    return (range.start && date < range.start) || (range.end && date > range.end);
 }
 
 export function limitToRange(date, range) {
