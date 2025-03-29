@@ -1744,6 +1744,26 @@ svelte-eslint-parser@^0.43.0:
     postcss "^8.4.39"
     postcss-scss "^4.0.9"
 
+svelte@5.25.3:
+  version "5.25.3"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-5.25.3.tgz#ec2a707133c99d4cbe9d64e72abccc7733656df3"
+  integrity sha512-J9rcZ/xVJonAoESqVGHHZhrNdVbrCfkdB41BP6eiwHMoFShD9it3yZXApVYMHdGfCshBsZCKsajwJeBbS/M1zg==
+  dependencies:
+    "@ampproject/remapping" "^2.3.0"
+    "@jridgewell/sourcemap-codec" "^1.5.0"
+    "@sveltejs/acorn-typescript" "^1.0.5"
+    "@types/estree" "^1.0.5"
+    acorn "^8.12.1"
+    aria-query "^5.3.1"
+    axobject-query "^4.1.0"
+    clsx "^2.1.1"
+    esm-env "^1.2.1"
+    esrap "^1.4.3"
+    is-reference "^3.0.3"
+    locate-character "^3.0.0"
+    magic-string "^0.30.11"
+    zimmerframe "^1.1.2"
+
 svelte@^4:
   version "4.2.19"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-4.2.19.tgz#4e6e84a8818e2cd04ae0255fcf395bc211e61d4c"
@@ -1763,26 +1783,6 @@ svelte@^4:
     locate-character "^3.0.0"
     magic-string "^0.30.4"
     periscopic "^3.1.0"
-
-svelte@^5.0.0:
-  version "5.25.3"
-  resolved "https://registry.yarnpkg.com/svelte/-/svelte-5.25.3.tgz#ec2a707133c99d4cbe9d64e72abccc7733656df3"
-  integrity sha512-J9rcZ/xVJonAoESqVGHHZhrNdVbrCfkdB41BP6eiwHMoFShD9it3yZXApVYMHdGfCshBsZCKsajwJeBbS/M1zg==
-  dependencies:
-    "@ampproject/remapping" "^2.3.0"
-    "@jridgewell/sourcemap-codec" "^1.5.0"
-    "@sveltejs/acorn-typescript" "^1.0.5"
-    "@types/estree" "^1.0.5"
-    acorn "^8.12.1"
-    aria-query "^5.3.1"
-    axobject-query "^4.1.0"
-    clsx "^2.1.1"
-    esm-env "^1.2.1"
-    esrap "^1.4.3"
-    is-reference "^3.0.3"
-    locate-character "^3.0.0"
-    magic-string "^0.30.11"
-    zimmerframe "^1.1.2"
 
 sync-child-process@^1.0.2:
   version "1.0.2"

@@ -38,9 +38,10 @@
   } = getContext("state");
 
   let el = $state();
-  let chunks = $state();
-  let bgChunks = $state();
-  let iChunks = $state([]);
+//  let chunks = $state();
+//  let bgChunks = $state();
+//  let iChunks = $state([]);
+
 
   //let el ;
   //let chunks ;
@@ -53,6 +54,45 @@
   let resourceFilter = $state();
   let start = $state(),
     end = $state();
+
+
+ let {chunks, bgChunks} = $derived.by(() => {
+
+  //  if (!disabled) {
+      let chunks = [];
+      let bgChunks = [];
+      for (let event of $_events) {
+        if (
+          (!event.allDay || bgEvent(event.display)) &&
+          eventIntersects(event, start, end, resourceFilter)
+        ) {
+	  
+          let chunk_ = createEventChunk(event, start, end);
+
+          switch (event.display) {
+            case "background":
+              bgChunks.push(chunk_);
+              break;
+            default:
+              chunks.push(chunk_);
+          }
+	  
+        }
+      }
+      groupEventChunks(chunks);
+    return { chunks, bgChunks}
+  });
+
+
+ let iChunks  = $derived.by(() => {
+      let iChunks = $_iEvents.map((event) =>
+        event && eventIntersects(event, start, end, resource)
+          ? createEventChunk(event, start, end)
+          : null,
+      );
+
+    return  iChunks 
+  });
 
   _events.subscribe((v) => {
     //console.log(`time_grid/Day.svelte: _events: ${v} `);
@@ -77,6 +117,7 @@
       groupEventChunks(chunks);
     }
   });
+
 
   /*
     _events.subscribe(v => {
@@ -103,6 +144,7 @@
  // });
   });
 
+/*
   run(() => {
     // NOTUNTRACK
 //    untrack(() => {
@@ -128,7 +170,9 @@
     }
  //   })
   });
+*/
 
+/*
   $effect(() => {
     if (!disabled) {
       iChunks = $_iEvents.map((event) =>
@@ -138,6 +182,7 @@
       );
     }
   });
+*/
 
   function dateFromPoint(x, y) {
     y -= rect(el).top;
@@ -171,7 +216,6 @@
   role="cell"
   onpointerdown={() => (!disabled ? $_interaction.action?.select : undefined)}
 >
-{#key chunks}
   <div class={$theme.bgEvents}>
     {#if !disabled}
       {#each bgChunks as chunk (chunk.event)}
@@ -200,5 +244,4 @@
       <NowIndicator />
     {/if}
   </div>
-{/key}
 </div>

@@ -27,52 +27,22 @@
     validRange,
   } = getContext("state");
 
- //let chunks = $state();
- //let bgChunks = $state();
- //let longChunks = $state();
- let iChunks = $state([]);
-
-// let chunks ;
- //let bgChunks ;
- //let longChunks ;
- //let iChunks ;
+  let chunks = $state(),
+    bgChunks = $state(),
+    longChunks = $state(),
+    iChunks = $state([]);
 
   let start = $state();
   let end = $state();
   let refs = $state([]);
   let resourceFilter = $state();
 
-
- let {chunks, bgChunks, longChunks} = $derived.by(() => {
-
-    let chunks = [];
-    let bgChunks = [];
-    for (let event of $_events) {
-      if (event.allDay && eventIntersects(event, start, end, resourceFilter)) {
-        let chunk = createEventChunk(event, start, end);
-        if (bgEvent(event.display)) {
-          bgChunks.push(chunk);
-        } else {
-          chunks.push(chunk);
-        }
-      }
-    }
-    prepareEventChunks(bgChunks, $hiddenDays);
-    let longChunks = prepareEventChunks(chunks, $hiddenDays);
-    // Run reposition only when events get changed
-    //reposition();                                                      //BUG
-    return { chunks, bgChunks, longChunks}
-  });
-
-
-
-
-  $effect.pre(() => {
+  run(() => {
     start = limitToRange(dates[0], $validRange);
     end = addDay(cloneDate(limitToRange(dates.at(-1), $validRange)));
   });
 
-  $effect.pre(() => {
+  run(() => {
     resourceFilter =
       resource ?? ($filterEventsWithResources ? $resources : undefined);
   });
@@ -82,7 +52,6 @@
     debounce(() => runReposition(refs, dates), debounceHandle, _queue2);
   }
 
-/*
   run(() => {
     chunks = [];
     bgChunks = [];
@@ -101,9 +70,8 @@
     // Run reposition only when events get changed
     reposition();
   });
-*/
 
-  $effect(() => {
+  run(() => {
     iChunks = $_iEvents.map((event) => {
       let chunk;
       if (

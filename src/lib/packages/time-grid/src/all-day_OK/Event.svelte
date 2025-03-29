@@ -1,6 +1,5 @@
 <script lang="ts">
   import { run } from "svelte/legacy";
-  import { untrack } from "svelte";
 
   //import {afterUpdate, getContext, onMount} from 'svelte';
   import { getContext, onMount } from "svelte";
@@ -47,39 +46,21 @@
   } = getContext("state");
 
   let el = $state();
-  //let event = $state();
+  let event = $state();
   let classes = $state();
   let style = $state();
-  //let content = $state();
-  //let timeText = $state();
+  let content = $state();
+  let timeText = $state();
   let margin = $state(1);
   let display = $state();
   let onclick = $derived(createHandler($eventClick, display));
 
-  let event = $derived(chunk.event);
-/*
   run(() => {
     event = chunk.event;
   });
-*/
-   let  [timeText, content] =  $derived.by(() => {
 
-   let  [timeText_, content_] = createEventContent(
-      chunk,
-      $displayEventEnd,
-      $eventContent,
-      $theme,
-      $_intlEventTime,
-      $_view,
-    );
-
-    return  [timeText_, content_] 
-  });
-
-  $effect(() => {
+  run(() => {
     display = event.display;
-
-   untrack(() => {
 
     // Class & Style
     let bgColor =
@@ -112,9 +93,7 @@
       ...createEventClasses($eventClassNames, event, $_view),
     ].join(" ");
   });
-  });
 
-/*
   // Content
   run(() => {
     [timeText, content] = createEventContent(
@@ -126,7 +105,6 @@
       $_view,
     );
   });
-*/
 
   onMount(() => {
     if (isFunction($eventDidMount)) {
