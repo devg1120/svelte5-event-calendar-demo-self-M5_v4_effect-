@@ -65,6 +65,28 @@
   });
 
 
+  _events.subscribe((v) => {
+   //console.log("Week All-days event Update")
+
+    chunks = [];
+    bgChunks = [];
+    for (let event of $_events) {
+      if (event.allDay && eventIntersects(event, start, end, resourceFilter)) {
+        let chunk = createEventChunk(event, start, end);
+        if (bgEvent(event.display)) {
+          bgChunks.push(chunk);
+        } else {
+          chunks.push(chunk);
+        }
+      }
+    }
+    
+    prepareEventChunks(bgChunks, $hiddenDays);
+    longChunks = prepareEventChunks(chunks, $hiddenDays);
+    // Run reposition only when events get changed
+    //reposition();
+   
+})
 
 
   $effect.pre(() => {
@@ -121,6 +143,7 @@
   });
 </script>
 
+{#key longChunks}
 {#each dates as date, i}
   <Day
     {date}
@@ -132,5 +155,6 @@
     bind:this={refs[i]}
   />
 {/each}
+{/key}
 
 <svelte:window onresize={reposition} />
